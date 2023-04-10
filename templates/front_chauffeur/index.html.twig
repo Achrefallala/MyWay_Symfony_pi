@@ -1,0 +1,36 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}Donnez une note: chauffeurs{% endblock %}
+
+{% block body %}
+
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Notez un chauffeur</h1>
+
+    <form method="post" action="{{ path('app_front_chauffeur') }}">
+        <label for="chauffeur">Choisissez le chauffeur :</label>
+        <select name="chauffeur" id="chauffeur">
+            {% for chauffeur in chauffeurs %}
+                <option value="{{ chauffeur.id }}">{{ chauffeur.nom }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label>Donnez une note :</label>
+        <div class="rating">
+            <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Excellent">5 </label>
+            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Très bien">4 </label>
+            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Bien">3 </label>
+            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Moyen">2 </label>
+            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Mauvais">1 </label>
+        </div>
+        <br>
+        <input type="submit" value="Noter" />
+    </form>
+</div>
+
+{% endblock %}

@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\GuideRepository;
+use App\Repository\ChauffeurRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: GuideRepository::class)]
-class Guide
+#[ORM\Entity(repositoryClass: ChauffeurRepository::class)]
+class Chauffeur
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -19,18 +20,20 @@ class Guide
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
 
-    #[ORM\Column]
-    private ?int $age = null;
+    #[ORM\Column(type: Types::BLOB)]
+    private $permis = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $langues = null;
+    private ?string $horaires = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255)]
     private ?string $experiences = null;
 
     #[ORM\Column(length: 255)]
     private ?int $note = null;
 
+  
+  
 
 
     public function getId(): ?int
@@ -62,26 +65,15 @@ class Guide
         return $this;
     }
 
-    public function getAge(): ?int
+
+    public function getHoraires(): ?string
     {
-        return $this->age;
+        return $this->horaires;
     }
 
-    public function setAge(int $age): self
+    public function setHoraires(string $horaires): self
     {
-        $this->age = $age;
-
-        return $this;
-    }
-
-    public function getLangues(): ?string
-    {
-        return $this->langues;
-    }
-
-    public function setLangues(string $langues): self
-    {
-        $this->langues = $langues;
+        $this->horaires = $horaires;
 
         return $this;
     }
@@ -91,7 +83,7 @@ class Guide
         return $this->experiences;
     }
 
-    public function setExperiences(?string $experiences): self
+    public function setExperiences(string $experiences): self
     {
         $this->experiences = $experiences;
 
@@ -107,4 +99,5 @@ class Guide
 
         return $this;
     }
+
 }
