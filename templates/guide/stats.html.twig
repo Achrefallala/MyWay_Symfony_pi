@@ -1,0 +1,19 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block body %}
+    <h1>Guide Statistics</h1>
+    <table>
+        <tr>
+            <td>Minimum Age:</td>
+            <td>{{ ageStats.min_age }}</td>
+        </tr>
+        <tr>
+            <td>Maximum Age:</td>
+            <td>{{ ageStats.max_age }}</td>
+        </tr>
+        <tr>
+            <td>Average Age:</td>
+            <td>{{ ageStats.avg_age }}</td>
+        </tr>
+    </table>
+{% endblock %}

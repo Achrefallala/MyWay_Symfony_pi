@@ -39,6 +39,16 @@ class GuideRepository extends ServiceEntityRepository
         }
     }
 
+
+
+    public function getAgeStats()
+    {
+        $qb = $this->createQueryBuilder('g');
+        $qb->select('MIN(g.age) as min_age', 'MAX(g.age) as max_age', 'AVG(g.age) as avg_age');
+        $query = $qb->getQuery();
+        return $query->getSingleResult();
+    }
+
 //    /**
 //     * @return Guide[] Returns an array of Guide objects
 //     */

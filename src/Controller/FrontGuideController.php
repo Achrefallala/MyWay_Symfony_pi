@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 
 use App\Entity\Guide;
@@ -8,31 +7,31 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-#[Route('/front')]
+
 class FrontGuideController extends AbstractController
 {
-    
-    #[Route('/guide', name: 'app_front_guide', methods: ['GET'])]
+    #[Route('/front/guide', name: 'app_front_guide', methods:['GET', 'POST'])]
     public function index(Request $request): Response
     {
-        $guides = $this->getDoctrine()->getRepository(Guide::class)->findAll();
+        $entityManager = $this->getDoctrine()->getManager();
+        $guides = $entityManager->getRepository(Guide::class)->findAll();
 
         $form = $this->createForm(RatingType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $guide = $data['guide'];
-            $note = $data['note'];
+            $formData = $form->getData();
+            $note = $formData['note'];
+            $guide = $formData['guide'];
 
-            // Enregistrer la note dans l'entité Guide
             $guide->setNote($note);
 
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($guide);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Votre note a bien été enregistrée !');
+            $this->addFlash('success', 'La note a été enregistrée avec succès.');
+
+            return $this->redirectToRoute('app_front_guide');
         }
 
         return $this->render('front_guide/index.html.twig', [

@@ -20,9 +20,6 @@ class Chauffeur
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
 
-    #[ORM\Column(type: Types::BLOB)]
-    private $permis = null;
-
     #[ORM\Column(length: 255)]
     private ?string $horaires = null;
 
