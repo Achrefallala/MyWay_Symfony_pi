@@ -1,0 +1,137 @@
+{% extends 'admin/base.html.twig' %}
+
+
+
+{% block title %}Modification d'un Trajet
+{% endblock %}
+
+{% block body %}
+
+
+<div class="row mb-3">
+		<a href=javascript:history.go(-1)>
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewbox="0 0 16 16">
+				<path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"/>
+			</svg>
+			Retour</a>
+	</div>
+	<div class="container">
+	<h3>Modification du trajet "{{trajet.depart ~' - '~ trajet.destination}}"</h3>
+        {{ form_start(form, {'attr' : {'novalidate': 'novalidate'}}) }}
+		<div class="row mb-3">
+			<div class="col-8 col-md-4 col-lg-3 ">
+                <label class="text-dark">Depart :</label>
+				<div class="input-group input-group-outline ">
+					{{ form_widget(form.depart, {'attr': {'class': 'form-control bg-white'}}) }}
+					
+				</div>
+				<div class="text-danger">		
+					{{ form_errors(form.depart) }}
+					
+				</div>
+			</div>
+			<div class="col-8 col-md-4 col-lg-3">
+                <label class="text-dark">Destination :</label>
+				<div class="input-group input-group-outline">		
+					{{ form_widget(form.destination, {'attr': {'class': 'form-control bg-white'}}) }}
+					
+				</div>
+				<div class="text-danger">		
+					{{ form_errors(form.destination) }}
+					
+				</div>
+			</div>
+		</div>
+
+		<div class="row my-3">
+			<div class="col-8 col-md-8 col-lg-6">
+                <label class="text-dark">Etat :</label>
+				<div class="input-group input-group-outline">
+					
+					{{form_widget(form.etat, {'attr': {'class': 'form-control bg-white'}})}}
+					
+				</div>
+				<div class="text-danger">		
+					{{form_errors(form.etat) }}
+					
+				</div>
+			</div>
+		</div>
+
+		<div class="row my-3">
+			<div class="col-8 col-md-8 col-lg-6">
+                <label class="text-dark">Directions :</label>
+				<div class="input-group input-group-outline">
+					
+					{{form_widget(form.directions, {'attr': {'class': 'form-control bg-white', 'rows': '4'}})}}
+					
+				</div>
+				<div class="text-danger">		
+					{{form_errors(form.directions) }}
+					
+				</div>
+				
+			</div>
+		</div>
+
+		<div class="row my-3">
+			<div class="col-8 col-md-8 col-lg-3">
+				<label class="text-dark">Distance (km) :</label>
+				<div class="input-group input-group-outline">
+
+					{{form_widget(form.distance, {'attr': {'class': 'form-control bg-white'}})}}
+
+				</div>
+				<div class="text-danger">
+					{{form_errors(form.distance) }}
+
+				</div>
+
+			</div>
+		</div>
+
+
+        <div class="row my-3">
+			<div class="col-8 col-md-4 col-lg-3">
+                <label class="text-dark">Latitude :</label>
+				<div class="input-group input-group-outline ">
+					{{ form_widget(form.latitude, {'attr': {'class': 'form-control bg-white'}}) }}
+					
+				</div>
+				<div class="text-danger">		
+					{{ form_errors(form.latitude) }}
+					
+				</div>
+			</div>
+			<div class="col-8 col-md-4 col-lg-3">
+                <label class="text-dark">Longitude :</label>
+				<div class="input-group input-group-outline">		
+					{{ form_widget(form.longitude, {'attr': {'class': 'form-control bg-white'}}) }}
+					
+				</div>
+				<div class="text-danger">		
+					{{ form_errors(form.longitude) }}
+					
+				</div>
+				
+			</div>
+		</div>
+
+		<div class="row ">
+		    <div class="col-8 col-md-2 col-lg-1">
+			</div>
+			<div class="col-8 col-md-4 col-lg-4">
+				<div class="text-center">
+                
+                {{ form_widget(form.save, {'attr': {'class': 'btn bg-gradient-success w-100'}, 'label': 'Enregistrer Trajet'}) }}
+					
+				</div>
+			</div>
+			<div class="col-8 col-md-2 col-lg-1">
+			</div>
+		</div>
+		{{ form_end(form) }}
+	</div>
+    
+{% endblock %}
+

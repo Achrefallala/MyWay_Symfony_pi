@@ -1,0 +1,144 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Liste des établissements
+{% endblock %}
+
+{% block body %}
+
+
+	<!-- Modal -->
+	<div class="modal modal-sm fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Voulez-vous vraiment supprimer cet établissement ?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
+					<a id="btn" href="" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+						<button type="button" class="btn btn-danger btn-sm">Confirmer</button>
+					</a>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+
+		<div class="col-12">
+			<div class="d-flex justify-content-between align-items">
+				<div>
+					<a href="{{ path('app_etablissement_create')}}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+						<button type="button" class="btn btn-success ">Ajouter un établissement</button>
+					</a>
+				</div>
+
+				<div>
+
+					{{form_start(searchForm,{'attr' : {'novalidate': 'novalidate'}})}}
+
+					<div class="input-group">
+					    <a href="{{ path('app_etablissement_list')}}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+							<button type="button" class="btn btn-secondary " style="box-shadow : none !important;">Reset</button>
+						</a>
+						<div class="form-outline ">
+
+							<div class=" input-group input-group-outline">
+							{{ form_widget(searchForm.field, {'attr': {'class': 'form-control bg-white'}}) }}
+							
+						</div>
+							
+						</div>
+						{{form_widget(searchForm.search, {'attr': {'class': 'btn btn-info'}})}}
+					</div>
+
+					
+
+					{{form_end(searchForm)}}
+				</div>
+
+			</div>
+
+
+			<div class="card mb-4">
+				<div class="card-body px-0 pb-2">
+
+					<div class="table-responsive p-0">
+
+						<table class="table align-items-center mb-0">
+							<thead>
+								<tr>
+									<th rowspan="2" class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nom</th>
+									<th rowspan="2" class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Type</th>
+									
+									<th colspan="2" class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Trajet</th>
+									<th rowspan="2" class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">nombre de vues</th>
+									<th rowspan="2" class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Date de Création</th>
+									<th rowspan="2" class="text-secondary opacity-7"></th>
+								</tr>
+								<tr>	
+									<th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Depart</th>
+									<th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Destination</th>	
+									
+								</tr>
+								
+							</thead>
+							<tbody>
+								{% for etablissement in etablissements %}
+
+
+									<tr>
+										<td class="align-middle text-center">
+											<span class="text-secondary text-xs font-weight-bold text-start">{{etablissement.getNom()}}</span>
+										</td>
+										<td class="align-middle text-center">
+											<span class="text-secondary text-xs font-weight-bold">{{etablissement.getType()}}</span>
+										</td>
+										
+										<td class="align-middle text-center">
+											<span class="text-secondary text-xs font-weight-bold">{{etablissement.getTrajet().getDepart()}}</span>
+										</td>
+										<td class="align-middle text-center">
+											<span class="text-secondary text-xs font-weight-bold">{{etablissement.getTrajet().getDestination()}}</span>
+										</td>
+										<td class="align-middle text-center">
+											<span class="text-secondary text-xs font-weight-bold">{{etablissement.views}}</span>
+										</td>
+										<td class="align-middle text-center">
+											<span class="text-secondary text-xs font-weight-bold text-start">{{etablissement.dateCreation | date}}</span>
+										</td>
+										<td class="align-middle text-center">
+											<a href="{{ path('app_etablissement_read', {'id': etablissement.getId()}) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+												<button type="button" class="btn btn-info btn-sm">Consulter</button>
+											</a>
+											<a href="{{ path('app_etablissement_update', {'id': etablissement.getId()}) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+												<button type="button" class="btn btn-outline-secondary btn-sm">Modifier</button>
+											</a>
+
+											<button type="button" class="btn btn-danger btn-sm" onclick="myFunction({{etablissement.getId()}})" data-bs-target="#exampleModal" data-bs-toggle="modal">Supprimer</button>
+
+										</td>
+
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		function myFunction(id) {
+const btn = document.getElementById("btn");
+btn.href = "/etablissement/delete/" + id;
+}
+	</script>
+
+{% endblock %}

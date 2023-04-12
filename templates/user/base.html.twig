@@ -1,0 +1,153 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}My Way
+			{% endblock %}
+		</title>
+		<link
+		rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+		{% block stylesheets %}
+			<!--====== Favicon Icon ======-->
+			<link
+			rel="shortcut icon" href="{{ asset("assets/user/images/favicon.png")}}" type="image/png">
+
+
+			<!--====== Animate CSS ======-->
+			<link
+			rel="stylesheet" href="{{ asset("assets/user/css/animate.css")}}">
+
+			<!--====== Nice Select CSS ======-->
+			<link
+			rel="stylesheet" href="{{ asset("assets/user/css/nice-select.css")}}">
+
+
+			<!--====== Line Icons CSS ======-->
+			<link
+			rel="stylesheet" href="{{ asset("assets/user/css/LineIcons.2.0.css")}}">
+
+			<!--====== Bootstrap CSS ======-->
+			<link
+			rel="stylesheet" href="{{ asset("assets/user/css/bootstrap.4.5.2.min.css")}}">
+
+			<!--====== Default CSS ======-->
+			<link
+			rel="stylesheet" href="{{ asset("assets/user/css/default.css")}}">
+
+			<!--====== Style CSS ======-->
+			<link rel="stylesheet" href="{{asset("assets/user/css/style.css")}}">
+		{% endblock %}
+
+		
+	</head>
+	<body>
+	{# 
+	<div class="preloader">
+        <div class="loader">
+            <div class="ytp-spinner">
+                <div class="ytp-spinner-container">
+                    <div class="ytp-spinner-rotator">
+                        <div class="ytp-spinner-left">
+                            <div class="ytp-spinner-circle"></div>
+                        </div>
+                        <div class="ytp-spinner-right">
+                            <div class="ytp-spinner-circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+	#}
+    
+    {% block header %}
+		<section class="header_area ">
+			<div class="header_navbar bg-dark">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<nav class="navbar navbar-expand-lg">
+								<a class="navbar-brand d-flex align-items-center" href="#home">
+									{#<img src="{{ asset("assets/user/images/logo.png")}}" alt="Logo" width="70"> #}
+									<h1 class="text-light">MyWay</h1>
+								</a>
+								<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+									<span class="toggler-icon"></span>
+									<span class="toggler-icon"></span>
+									<span class="toggler-icon"></span>
+								</button>
+
+								<div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+									<ul id="nav" class="navbar-nav ml-auto">
+										<li class="nav-item ">
+											<a class="page-scroll " href="#home">Home</a>
+										</li>
+										<li class="nav-item">
+											<a class="page-scroll active" href="{{path('app_trajet_search')}}">Trajet</a>
+										</li>
+										<li class="nav-item">
+											<a class="page-scroll" href="#location">Location</a>
+										</li>
+										<li class="nav-item">
+											<a class="page-scroll" href="#reclamation">Reclamation</a>
+										</li>
+										<li class="nav-item">
+											<a class="page-scroll" href="#contact">Contact</a>
+										</li>
+									</ul>
+								</div>
+								<!-- navbar collapse -->
+							</nav>
+							<!-- navbar -->
+						</div>
+					</div>
+					<!-- row -->
+				</div>
+				<!-- container -->
+			</div>
+			<!-- header navbar -->
+		</section>
+    {% endblock %}
+    <section class="pt-130">
+        <div class="container">
+            
+                    {% block body %}{% endblock %}
+                
+        </div>
+    </section>
+  
+    
+  
+
+    {% block javascripts %} 
+<!--====== Jquery js ======-->
+    <script src="{{ asset("assets/user/js/vendor/jquery-1.12.4.min.js")}}"></script>
+    <script src="{{ asset("assets/user/js/vendor/modernizr-3.7.1.min.js")}}"></script>
+    
+    <!--====== Bootstrap js ======-->
+    <script src="{{ asset("assets/user/js/popper.min.js")}}"></script>
+    <script src="{{ asset("assets/user/js/bootstrap.4.5.2.min.js")}}"></script>
+
+    
+    <!--====== Scrolling Nav js ======-->
+    <script src="{{ asset("assets/user/js/jquery.easing.min.js")}}"></script>
+    <script src="{{ asset("assets/user/js/scrolling-nav.js")}}"></script>
+    
+    <!--====== Counter Up js ======-->
+    <script src="{{ asset("assets/user/js/waypoints.min.js")}}"></script>
+    <script src="{{ asset("assets/user/js/jquery.counterup.min.js")}}"></script>
+    
+    <!--====== Nice Select js ======-->
+    <script src="{{ asset("assets/user/js/jquery.nice-select.min.js")}}"></script>
+    
+    <!--====== WOW js ======-->
+    <script src="{{ asset("assets/user/js/wow.min.js")}}"></script>
+    
+    <!--====== Main js ======-->
+    <script src="{{ asset("assets/user/js/main.js")}}"></script>
+{% endblock %}
+		
+	</body>
+</html>
