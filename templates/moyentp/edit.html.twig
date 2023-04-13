@@ -1,0 +1,93 @@
+{% extends 'homeadmin/index.html.twig' %}
+
+{% block title %}New Moyentp{% endblock %}
+
+
+{% block tableau %}
+ 
+    <div class="col-xl-0">
+    
+
+        <!--begin::Charts Widget 1-->
+        
+            <!--begin::Header-->
+            <div class="card-header border-0 pt-5">
+            <div class="container">
+
+
+        
+        <!--begin::Tables Widget 3-->
+        <div class="card card-xl-stretch mb-5 mb-xl-8" style="max-width: 680px; border: 1px solid #d6d6d6; padding: 20px;">
+            <!--begin::Header-->
+            <div class="card-header border-0 pt-5">
+             <h1>Ajouter moyen de transport</h1>
+             <br>
+                
+                {{ form_start(form) }}
+                <div hidden>
+                  
+                  <div class="form-group">
+               
+                    {{ form_label(form.matricule, 'Matricule', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.matricule, {'attr': {'class': 'form-control', 'placeholder': 'Saisir le matricule','style': 'border: 1px solid #ccc;'}}) }}
+                  </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    {{ form_label(form.type, 'Type', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.type, {'attr': {'class': 'form-control', 'placeholder': 'Saisir le type','style': 'border: 1px solid #ccc;'}}) }}
+                    {{ form_errors(form.type) }}
+                  </div>
+                  
+                  <div class="form-group">
+                    {{ form_label(form.nbreplace, 'Nombre de places', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.nbreplace, {'attr': {'class': 'form-control', 'placeholder': 'Saisir le nombre de places','style': 'border: 1px solid #ccc;'}}) }}
+                    {{ form_errors(form.nbreplace) }}
+                  </div>
+                  
+                  <div class="form-group">
+                    {{ form_label(form.prix_ticket, 'Prix du ticket', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.prix_ticket, {'attr': {'class': 'form-control', 'placeholder': 'Saisir le prix du ticket','style': 'border: 1px solid #ccc;'}}) }}
+                    {{ form_errors(form.prix_ticket) }}
+                  </div>
+                  
+                  <div class="form-group">
+                    {{ form_label(form.horaire, 'Horaire', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.horaire, {'attr': {'class': 'form-control', 'placeholder': 'Saisir l\'horaire','style': 'border: 1px solid #ccc;'}}) }}
+                    {{ form_errors(form.horaire) }}
+                  </div>
+                  
+                  <div class="form-group">
+                    {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Saisir le nom','style': 'border: 1px solid #ccc;'}}) }}
+                    {{ form_errors(form.nom) }}
+                  </div>
+                  <br>
+
+                  <div class="form-group">
+                 
+                    <button class="btn btn-primary" style="width:300px; margin:1px; background-color:#8DD3BB; margin: 0 auto; display: block;" type="submit">Modifier</button>
+
+                   
+                    </button>
+                  </div>
+                
+                  
+                {{ form_end(form) }}
+              
+            </div>
+            <!--end::Header-->
+        </div>
+        <!--end::Tables Widget 3-->
+        
+    </div>
+    <!--end::Container-->
+</div>
+
+<!--end::Entry-->
+
+ 
+
+
+   
+{% endblock %}

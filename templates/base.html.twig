@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="apple-touch-icon" sizes="76x76" href="{{asset("Back/img/apple-icon.png")}}">
+        <link rel="icon" type="image/png" href="{{ asset("Back/img/favicon.png")}}">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+
+             <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+
+<!-- Nucleo Icons -->
+<link href="{{ asset("Back/css/nucleo-icons.css")}}" rel="stylesheet" />
+<link href="{{ asset("Back/css/nucleo-svg.css")}}" rel="stylesheet" />
+
+<!-- Font Awesome Icons -->
+<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+
+<!-- CSS Files -->
+
+
+
+<link id="pagestyle" href="{{ asset("Back/css/material-dashboard.css?v=3.0.4")}}" rel="stylesheet" />
+
+
+<!-- Molka -->
+<link rel="canonical" href="Https://preview.keenthemes.com/seven-html-free" />
+		
+	
+	
+<!-- end molka -->
+
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+          <script src="{{ asset("Back/js/core/popper.min.js")}}" ></script>
+         <script src="{{ asset("Back/js/core/bootstrap.min.js")}}" ></script>
+         <script src="{{ asset("Back/js/plugins/perfect-scrollbar.min.js")}}" ></script>
+         <script src="{{ asset("Back/js/plugins/smooth-scrollbar.min.js")}}" ></script>
+         <script src="{{ asset("Back/js/material-dashboard.min.js?v=3.0.4")}}"></script>
+         <!-- Molka -->
+         <!--begin::Javascript-->
+		<!--begin::Global Javascript Bundle(used by all pages)-->
+		<script src="{{ asset("molka/plugins/global/plugins.bundle.js")}}"></script>
+		<script src="{{ asset("molka/js/scripts.bundle.js")}}"></script>
+		<!--end::Global Javascript Bundle-->
+		<!--begin::Page Vendors Javascript(used by this page)-->
+		<script src="{{ asset("molka/plugins/custom/fullcalendar/fullcalendar.bundle.js")}}"></script>
+		<!--end::Page Vendors Javascript-->
+		<!--begin::Page Custom Javascript(used by this page)-->
+		<script src="{{ asset("molka/js/custom/widgets.js")}}"></script>
+		<!--end::Page Custom Javascript-->
+		<!--end::Javascript-->
+         <!-- end molka -->
+
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+     
+
+  {% for message in app.session.getFlashBag.get('success') %}
+  <br>
+  <br>
+  <div class="container position-fixed top-3 start-50 translate-middle-x" style="width:300px;">
+    <div class="alert alert-success text-center" role="alert" style="background-color: #d4edda; border-color: #c3e6cb; color: #155724; border-radius: .25rem;">
+      {{ message }}
+    </div>
+  </div>
+
+   <script>
+        setTimeout(function() {
+            document.querySelector('.alert-success').remove();
+        }, 3000);
+    </script>
+{% endfor %}
+
+
+
+
+        {% block body %}{% endblock %}
+    </body>
+</html>

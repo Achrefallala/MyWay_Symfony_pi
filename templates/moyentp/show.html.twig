@@ -1,0 +1,76 @@
+{% extends 'homeadmin/index.html.twig' %}
+{% block tableau %}
+
+  
+
+    <div class="col-xl-0">
+    
+
+        <!--begin::Charts Widget 1-->
+        
+            <!--begin::Header-->
+            <div class="card-header border-0 pt-5">
+            <div class="container">
+
+
+        
+        <!--begin::Tables Widget 3-->
+        <div class="card card-xl-stretch mb-5 mb-xl-8" style="max-width: 680px; border: 1px solid #d6d6d6; padding: 20px;">
+            <!--begin::Header-->
+            <div class="card-header border-0 pt-5">
+             <h1>Détails</h1>
+             <br>
+
+    
+    <table class="table">
+        <tbody>
+          
+            <tr>
+                <th class="fw-bolder">Matricule:</th>
+                <td>{{moyentps.matricule }}</td>
+            </tr>
+             <tr>
+                <th class="fw-bolder">Type:</th>
+                <td>{{ moyentps.type }}</td>
+            </tr>
+            <tr>
+                <th class="fw-bolder">Nombre de place:</th>
+                <td>{{ moyentps.nbreplace }}</td>
+            </tr>
+           
+            <tr>
+                <th class="fw-bolder">Horaire:</th>
+                <td> {{ moyentps.horaire }}</td>
+            <tr>
+            <tr>
+                <th class="fw-bolder">Nom:</th>
+                <td> {{ moyentps.nom }}</td>
+            <tr>
+            <tr>
+                <th class="fw-bolder">Prix tickets:</th>
+                <td> {{ moyentps.getPrixTicket() }}</td>
+            <tr>
+            </tbody>
+    </table>
+    <br>
+    
+   <div class="form-group">
+    <a href="{{ path('app_moyentp_index') }}" class="btn btn-primary" style="width:300px; margin:1px; background-color:#8DD3BB; margin: 0 auto; display: block;">Liste des moyens de transport</a>
+</div>
+
+    
+</div>
+</div>
+</div>
+</div>
+<br>
+  
+</div>
+
+
+
+                
+
+{% endblock %}
+
+

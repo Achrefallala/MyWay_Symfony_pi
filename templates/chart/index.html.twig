@@ -1,0 +1,64 @@
+{% extends 'homeadmin/index.html.twig' %}
+
+{% block tableau %}
+
+  <div class="col-xl-0">
+    
+
+        <!--begin::Charts Widget 1-->
+        
+            <!--begin::Header-->
+            <div class="card-header border-0 pt-5">
+            <div class="container">
+
+
+    <!--begin::Tables Widget 3-->
+    <div class="card card-xl-stretch mb-5 mb-xl-8" style="width: 770px;">
+        <!--begin::Header-->
+        <br>
+        <br>
+
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h1 class="m-0 font-weight-bold text-primary"><font style="color:#8DD3BB; ">Statistique</font></h1>
+        </div>
+
+        <!-- Card Body -->
+        <div class="card-body">
+            <div id="piechart" style="width: 100%; height: 500px;"></div>
+        </div>
+    </div>
+
+    <!-- Load Google Charts -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <!-- Draw Pie Chart -->
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Type', 'Count'],
+                ['BUS', {{ nb_bus }}],
+                ['METRO', {{ nb_metro }}],
+                ['TRAIN', {{ nb_train }}]
+            ]);
+
+            var options = {
+                title: '',
+                colors: ['#e1bee7', '#ffcc80', '#8DD3BB'],
+                backgroundColor: '#f2f2f2',
+                pieSliceTextStyle: {color: 'black'},
+                titleTextStyle: {color: '#100677', fontSize: 20},
+                legend: {position: 'bottom'}
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            chart.draw(data, options);
+        }
+    </script>
+    </div>
+    </div>
+    </div>
+{% endblock %}

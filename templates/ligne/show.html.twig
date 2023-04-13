@@ -1,0 +1,65 @@
+{% extends 'homeadmin/index.html.twig' %}
+{% block tableau %}
+
+  
+
+    <div class="col-xl-0">
+    
+
+        <!--begin::Charts Widget 1-->
+        
+            <!--begin::Header-->
+            <div class="card-header border-0 pt-5">
+            <div class="container">
+
+
+        
+        <!--begin::Tables Widget 3-->
+        <div class="card card-xl-stretch mb-5 mb-xl-8" style="max-width: 680px; border: 1px solid #d6d6d6; padding: 20px;">
+            <!--begin::Header-->
+            <div class="card-header border-0 pt-5">
+             <h1>Détails</h1>
+             <br>
+
+    
+    <table class="table">
+        <tbody>
+          
+            <tr>
+                <th class="fw-bolder">Id:</th>
+                <td>{{ligne.id}}</td>
+            </tr>
+             <tr>
+                <th class="fw-bolder">Trajet:</th>
+                <td>{{ ligne.trajet }}</td>
+            </tr>
+            <tr>
+                <th class="fw-bolder">Moyen de transport:</th>
+                <td>{{ ligne.moyentp}}</td>
+            </tr>
+           
+            
+            </tbody>
+    </table>
+    <br>
+    
+   <div class="form-group">
+    <a href="{{ path('app_ligne_index') }}" class="btn btn-primary" style="width:300px; margin:1px; background-color:#8DD3BB; margin: 0 auto; display: block;">Liste des moyens de transport</a>
+</div>
+
+    
+</div>
+</div>
+</div>
+</div>
+<br>
+  
+</div>
+
+
+
+                
+
+{% endblock %}
+
+
