@@ -60,6 +60,13 @@ class TrajetRepository extends ServiceEntityRepository
 
     }
 
+    public function findDepartList(){
+        return $this->getEntityManager()
+                    ->createQuery("SELECT DISTINCT t.depart FROM APP\Entity\Trajet t")
+                    ->getResult();
+
+    }
+
 //    /**
 //     * @return Trajet[] Returns an array of Trajet objects
 //     */

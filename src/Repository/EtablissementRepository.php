@@ -39,13 +39,56 @@ class EtablissementRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByAnyField($input){
+    public function findByAnyField($input)
+    {
+        if($input == ''){
+            return $this->findAll();
+        }
         return $this->getEntityManager()
-                    ->createQuery("SELECT e FROM APP\Entity\Etablissement e JOIN e.trajet t WHERE e.nom LIKE :str OR e.type LIKE :str OR t.depart LIKE :str OR t.destination LIKE :str ")
-                    ->setParameter('str', '%'.$input.'%')
-                    ->getResult();
+            ->createQuery("SELECT e FROM APP\Entity\Etablissement e WHERE e.nom LIKE :str ")
+            ->setParameter('str', '%' . $input . '%')
+            ->getResult();
 
     }
+
+    public function filter($type, $adresse, $depart, $destination, $minViews, $maxViews, $minDateCreation, $maxDateCreation)
+    {
+        $query = $this->createQueryBuilder('e')
+            ->join('e.trajet', 't')
+            ->addSelect('t');
+            
+        if ($type) {
+            $query->where('e.type = :type')
+                ->setParameter('type', $type);
+        }
+        if ($adresse) {
+            $query->andWhere("e.adresse LIKE :adresse")
+                ->setParameter('adresse', '%' . $adresse . '%');
+        }
+        if ($depart) {
+            $query->andwhere("t.depart = :depart")
+                ->setParameter('depart', $depart);
+        }
+        if ($destination) {
+            $query->andwhere("t.destination = :destination")
+                ->setParameter('destination', $destination);
+        }
+
+        $query->andwhere("e.views BETWEEN :minViews AND :maxViews")
+            ->setParameter('minViews', $minViews)
+            ->setParameter('maxViews', $maxViews);
+
+        $query->andwhere("e.dateCreation BETWEEN :minDateCreation AND :maxDateCreation")
+            ->setParameter('minDateCreation', $minDateCreation)
+            ->setParameter('maxDateCreation', $maxDateCreation);
+
+
+        return $query->getQuery()->getResult();
+
+    }
+
+
+
 
 //    /**
 //     * @return Etablissement[] Returns an array of Etablissement objects

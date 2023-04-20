@@ -5,9 +5,10 @@ namespace App\Controller;
 
 use App\Form\SearchEtablissementType;
 use App\Form\EtablissementType;
+use App\Form\FilterEtablissementType;
 use App\Entity\Etablissement;
 use App\Repository\EtablissementRepository;
-use Symfony\Component\HttpFoundation\File\File;
+
 use Symfony\Component\String\Slugger\SluggerInterface;
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
@@ -20,24 +21,47 @@ use Symfony\Component\Routing\Annotation\Route;
 class EtablissementController extends AbstractController
 {
     #[Route('/etablissement/list', name: 'app_etablissement_list')]
-    public function list(EtablissementRepository $repository, Request $request): Response
-    {
+    public function list(EtablissementRepository $repository, Request $request): Response {  
         $etablissements = $repository->findAll();
-        $form = $this->createForm(SearchEtablissementType::class);
+        $form = $this->createForm(FilterEtablissementType::class);
+
+        date_default_timezone_set('Africa/Tunis');
+        $form['maxDateCreation']->setData(new DateTime());
+       
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
-            $etablissements = $repository->findByAnyField($form['field']->getData());
-            return $this->renderForm('admin/etablissement/list.html.twig', [
-                'searchForm' => $form,
-                'pageName' => 'Liste des etablissements',
-                'etablissements' => $etablissements
+
+        if ($form->isSubmitted() ) {
+
+            if(! $form['depart']->getData() && $form['destination']->getData()){
+                $etablissements = $repository->filter($form['type']->getData(), $form['adresse']->getData(), null, $form['destination']->getData()->getDestination(), $form['minViews']->getData(), $form['maxViews']->getData(), $form['minDateCreation']->getData(), $form['maxDateCreation']->getData());
+            }
+            if(! $form['destination']->getData() && $form['depart']->getData()){
+                $etablissements = $repository->filter($form['type']->getData(), $form['adresse']->getData(), $form['depart']->getData()->getDepart(), null, $form['minViews']->getData(), $form['maxViews']->getData(), $form['minDateCreation']->getData(), $form['maxDateCreation']->getData());
+            }
+
+            if(! $form['destination']->getData() && ! $form['depart']->getData()){
+                $etablissements = $repository->filter($form['type']->getData(), $form['adresse']->getData(), null, null, $form['minViews']->getData(), $form['maxViews']->getData(), $form['minDateCreation']->getData(), $form['maxDateCreation']->getData());
+            }
+
+            if($form['destination']->getData() && $form['depart']->getData()){
+                $etablissements = $repository->filter($form['type']->getData(), $form['adresse']->getData(), $form['depart']->getData()->getDepart(), $form['destination']->getData()->getDestination(), $form['minViews']->getData(), $form['maxViews']->getData(), $form['minDateCreation']->getData(), $form['maxDateCreation']->getData());
+            }
+    
+            
+            return $this->render('admin/etablissement/list.html.twig', [  
+                'pageName' => 'Liste des etablissements',  
+                'filterForm' => $form->createView(),
+                'etablissements' =>  $etablissements,
+                'filtred' => true
             ]);
 
         }
-        return $this->renderForm('admin/etablissement/list.html.twig', [
-            'searchForm' => $form,
-            'pageName' => 'Liste des etablissements',
-            'etablissements' => $etablissements
+        
+        return $this->render('admin/etablissement/list.html.twig', [  
+            'pageName' => 'Liste des etablissements',  
+            'filterForm' => $form->createView(),
+            'etablissements' =>  $etablissements,
+            'filtred' => false
         ]);
     }
 

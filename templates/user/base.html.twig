@@ -9,6 +9,10 @@
 		rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
 		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
 		{% block stylesheets %}
+		
+            <!--====== auto complete ======-->
+            {{ encore_entry_link_tags('app') }}
+
 			<!--====== Favicon Icon ======-->
 			<link
 			rel="shortcut icon" href="{{ asset("assets/user/images/favicon.png")}}" type="image/png">
@@ -122,6 +126,10 @@
   
 
     {% block javascripts %} 
+
+     <!--====== auto complete ======-->
+     {{ encore_entry_script_tags('app') }}
+
 <!--====== Jquery js ======-->
     <script src="{{ asset("assets/user/js/vendor/jquery-1.12.4.min.js")}}"></script>
     <script src="{{ asset("assets/user/js/vendor/modernizr-3.7.1.min.js")}}"></script>

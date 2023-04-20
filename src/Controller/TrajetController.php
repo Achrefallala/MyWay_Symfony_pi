@@ -19,23 +19,12 @@ class TrajetController extends AbstractController
 
     #--------------------------------------ADMIN---------------------------------------------#
     #[Route('/trajet/list', name: 'app_trajet_list')]
-    public function list(TrajetRepository $repository, Request $request): Response {
-        $trajets= $repository->findAll();
-        $form=$this->createForm(SearchTrajetType::class);
-        $form->handleRequest($request);
-        if($form->isSubmitted() ){
-            $trajets = $repository->findByDepartOrDestination($form['field']->getData());
-            return $this->renderForm('admin/trajet/list.html.twig', [
-                'searchForm' => $form,
-                'pageName' => 'Liste des Trajets',
-                'trajets'=> $trajets
-            ]);
-
-        }
+    public function list(): Response {
+        
         return $this->renderForm('admin/trajet/list.html.twig', [
-            'searchForm' => $form,
+            
             'pageName' => 'Liste des Trajets',
-            'trajets'=> $trajets
+            
         ]);
     }
 
@@ -127,8 +116,8 @@ class TrajetController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             $display = 'none';
-            $rep = $doctrine->getRepository(Trajet::class);
-            $trajet = $rep->findByDepartAndDestination($form['depart']->getData(), $form['destination']->getData());
+            
+            $trajet = $form['trajet']->getData();
             if($trajet != null){
                 return $this->redirectToRoute('app_trajet_details', ['id' => $trajet->getId()]);
             }else{

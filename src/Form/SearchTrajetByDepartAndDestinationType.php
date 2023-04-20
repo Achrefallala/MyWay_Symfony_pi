@@ -7,7 +7,13 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use App\Entity\Trajet;
+
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 use Symfony\Component\Validator\Constraints\NotNull;
 
 class SearchTrajetByDepartAndDestinationType extends AbstractType
@@ -15,19 +21,23 @@ class SearchTrajetByDepartAndDestinationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('depart', TextType::class, [  
+            ->add('trajet', EntityType::class, [  
                 'constraints' => [
                     new NotNull([
-                        'message' => 'Veuillez saisir ce champ'
+                        'message' => 'Veuillez choisir un trajet'
                     ]),
                 ],
-            ])
-            ->add('destination', TextType::class, [  
-                'constraints' => [
-                    new NotNull([
-                        'message' => 'Veuillez saisir ce champ'
-                    ]),
-                ],
+                'class' => Trajet::class,
+                'placeholder' => 'Trajet',
+                'choice_label' => function ($trajet) {
+                    return $trajet->getDepart().' --- '.$trajet->getDestination();
+                },
+                'autocomplete' => true,
+                'tom_select_options' => [
+                    'maxOptions' => 3,
+                    'openOnFocus' => false
+                ]
+                
             ])
             ->add('search', SubmitType::class)
         ;

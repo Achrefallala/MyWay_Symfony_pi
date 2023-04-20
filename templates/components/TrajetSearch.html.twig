@@ -1,0 +1,93 @@
+<div {{ attributes }}>
+	<div class="row">
+
+		<div class="col-12">
+			<div class="d-flex justify-content-between align-items">
+				<div>
+					<a href="{{ path('app_trajet_create')}}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+						<button type="button" class="btn btn-success ">Ajouter un trajet</button>
+					</a>
+				</div>
+
+				<div>
+	
+							<div class=" input-group input-group-outline">
+								<input class='form-control bg-white' type="search" data-model="query" placeholder="Chercher">
+								<span class="input-group-text px-2 border-0" id="search-addon">
+									<i class="fas fa-search"></i>
+								</span>
+							</div>
+						
+				</div>
+			</div>
+
+			<div class="card mb-4">
+				<div class="card-body px-0 pb-2">
+
+					<div class="table-responsive p-0">
+
+						<table class="table align-items-center mb-0">
+							<thead>
+								<tr>
+									<th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Depart</th>
+									<th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Destination</th>
+									<th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Distance (km)</th>
+									<th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombre de vues</th>
+									<th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Date de création</th>
+									<th class="text-secondary opacity-7"></th>
+								</tr>
+							</thead>
+							<tbody>
+								{% if this.trajets is empty %}
+									<tr>
+
+										<td colspan="6">
+											<span class="text-secondary text-xs font-weight-bold ">Il n'y a aucun trajet pour le moment</span>
+										</td>
+									</tr>
+
+
+								{% else %}
+
+									{% for trajet in this.trajets %}
+										<tr>
+											<td class="align-middle text-center">
+												<span class="text-secondary text-xs font-weight-bold text-start">{{trajet.getDepart()}}</span>
+											</td>
+											<td class="align-middle text-center">
+												<span class="text-secondary text-xs font-weight-bold">{{trajet.getDestination()}}</span>
+											</td>
+											<td class="align-middle text-center">
+												<span class="text-secondary text-xs font-weight-bold ">{{trajet.distance}}</span>
+											</td>
+											<td class="align-middle text-center">
+												<span class="text-secondary text-xs font-weight-bold">{{trajet.views}}</span>
+											</td>
+											<td class="align-middle text-center">
+												<span class="text-secondary text-xs font-weight-bold">{{trajet.dateCreation | date}}</span>
+											</td>
+											<td class="align-middle text-center">
+												<a href="{{ path('app_trajet_read', {'id': trajet.getId()}) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+													<button type="button" class="btn btn-info btn-sm">Consulter</button>
+												</a>
+												<a href="{{ path('app_trajet_update', {'id': trajet.getId()}) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+													<button type="button" class="btn btn-outline-secondary btn-sm">Modifier</button>
+												</a>
+
+												<button type="button" class="btn btn-danger btn-sm" onclick="myFunction({{trajet.getId()}})" data-bs-target="#exampleModal" data-bs-toggle="modal">Supprimer</button>
+
+											</td>
+
+										</tr>
+									{% endfor %}
+
+								{% endif %}
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

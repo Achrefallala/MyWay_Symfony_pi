@@ -67,8 +67,12 @@ class EtablissementType extends AbstractType
                 'choice_label' => function ($trajet) {
                     return $trajet->getDepart().' --- '.$trajet->getDestination();
                 },
-                'multiple' => false,
-                'expanded' => false,
+                'placeholder' => 'Trajet',
+                'autocomplete' => true,
+                'tom_select_options' => [
+                    'maxOptions' => 3,
+                    'openOnFocus' => false
+                ]
             ])
             ->add('save', SubmitType::class)
         ;

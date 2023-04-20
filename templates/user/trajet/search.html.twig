@@ -31,33 +31,22 @@
 				</div>
 			</div>
 
-			<div class="container ">
+			<div class="container" >
 
-				{{ form_start(form, {'attr' : {'novalidate': 'novalidate'}}) }}
+				{{ form_start(form, {'attr' : {'novalidate': 'novalidate' }}) }}
 				<div class="row my-3 d-flex justify-content-center ">
-					<div class="col-8 col-md-4 col-lg-3 ">
-						<label class="text-dark">Depart :</label>
-						<div class="input-group input-group-outline ">
-							{{ form_widget(form.depart, {'attr': {'class': 'form-control bg-white'}}) }}
-
-						</div>
-						<div class="text-danger">
-							{{ form_errors(form.depart) }}
-
-						</div>
-					</div>
-					<div class="col-8 col-md-4 col-lg-3">
-						<label class="text-dark">Destination :</label>
-						<div class="input-group input-group-outline">
-							{{ form_widget(form.destination, {'attr': {'class': 'form-control bg-white'}}) }}
-
-						</div>
+					<div class="col-8 col-md-4 col-lg-6 ">
 						
+						<div class="input-group input-group-outline ">
+							{{ form_widget(form.trajet, {'attr': {'style': ''}}) }}
+
+						</div>
 						<div class="text-danger">
-							{{ form_errors(form.destination) }}
+							{{ form_errors(form.trajet) }}
 
 						</div>
 					</div>
+					
 				</div>
 
 				<div class="row my-3 d-flex justify-content-center">
@@ -75,5 +64,11 @@
 			</div>
 		</div>
 	</div>
+
+
+
+
+
+	
 
 {% endblock %}
