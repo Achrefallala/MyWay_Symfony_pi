@@ -17,10 +17,17 @@
       <div class="col-md-4 mb-4">
         <div class="card">
           <div class="card-body">
-          <h3>Transport</h3>
+          <h3>{{ ligne.moyentp.type}}</h3>
           <br>
-          <img src="assets/front/images/transport.PNG"  >
-
+          {% if ligne.moyentp.type == 'TRAIN' %}
+            <img src="assets/front/images/train.jpg"  >
+          {% elseif ligne.moyentp.type == 'BUS' %}
+            <img src="assets/front/images/bus.jpg"  >
+          {% elseif ligne.moyentp.type == 'METRO' %}
+            <img src="assets/front/images/metro.jpg"  >
+          {% endif %}
+           <br>
+           <br>
             <h5 class="card-title">{{ ligne.moyentp }}</h5>
             <p class="card-text">{{ ligne.trajet }}</p>
             <br>
