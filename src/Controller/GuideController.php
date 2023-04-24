@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use App\Controller\Chart;
 use App\Entity\Guide;
 use App\Form\GuideType;
 use App\Repository\GuideRepository;
@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Dompdf\Dompdf;
+
+
 
 
 
@@ -44,8 +47,10 @@ class GuideController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_guide_show', methods: ['GET'])]
-    public function show(Guide $guide): Response
+   
+#[Route('/guide/{id}', name: 'app_guide_show', methods: ['GET'])]
+#[ParamConverter('guide', class: Guide::class)]
+public function show(Guide $guide): Response
     {
         return $this->render('guide/show.html.twig', [
             'guide' => $guide,
@@ -67,7 +72,7 @@ class GuideController extends AbstractController
         return $this->renderForm('guide/edit.html.twig', [
             'guide' => $guide,
             'form' => $form,
-        ]);
+        ]);           
     }
 
     #[Route('/{id}', name: 'app_guide_delete', methods: ['POST'])]
@@ -81,15 +86,31 @@ class GuideController extends AbstractController
     }
 
 
-    #[Route('/stats', name:'app_guide_stats')]
-    #[ParamConverter('guide', class: Guide::class)]
+    #[Route('/stats', name: 'app_guide_stats')]
+public function stats(GuideRepository $guideRepository): Response
+{
+    $ageStats = $guideRepository->getAgeStats();
 
-    public function stats(GuideRepository $guideRepository):Response
-    {
-        $ageStats = $guideRepository->getAgeStats();
-        return $this->render('guide/stats.html.twig', [
-            'ageStats' => $ageStats,
-        ]);
-    }
-  
+    return $this->render('guide/stats.html.twig', [
+        'ageStats' => $ageStats
+    ]);
+}
+#[Route('/pdf', name: 'app_guide_pdf')]
+
+public function pdf()
+{
+    $dompdf = new Dompdf();
+    $html = $this->renderView('guide/pdf.html.twig', [
+        'guides' => $this->getDoctrine()->getRepository(Guide::class)->findAll(),
+    ]);
+    $dompdf->loadHtml($html);
+    $dompdf->setPaper('A4', 'landscape');
+    $dompdf->render();
+    $pdfContent = $dompdf->output();
+
+    $response = new Response($pdfContent);
+    $response->headers->set('Content-Type', 'application/pdf');
+
+    return $response;
+}
 }

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\GuideRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: GuideRepository::class)]
 class Guide
@@ -30,6 +31,9 @@ class Guide
 
     #[ORM\Column(length: 255)]
     private ?int $note = null;
+
+
+    #[ORM\ManyToOne(targetEntity:'App\Entity\chauffeur', inversedBy:'guide')]
 
 
 

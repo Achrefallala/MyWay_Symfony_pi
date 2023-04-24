@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -53,7 +54,6 @@
 
 
   <body class="g-sidenav-show  bg-gray-100">
-    
 
     
 
@@ -89,7 +89,12 @@
         <i class="material-icons opacity-10">dashboard</i>
       </div>
     
-    <span class="nav-link-text ms-1">Dashboard</span>
+    <span class="nav-link-text ms-1">Dashboard</span><ul
+     class="navbar-nav">
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_guide_stats') }}">Statistiques</a>
+    </li>
+</ul>
   </a>
 </li>
 

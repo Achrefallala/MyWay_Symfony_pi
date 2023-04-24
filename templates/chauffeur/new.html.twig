@@ -1,12 +1,17 @@
 {% extends 'baseBack.html.twig' %}
 
-{% block title %} New Chauffeur  {% endblock %}
+{% block title %}New Chauffeur{% endblock %}
 
 {% block body %}
-    <h1>Creer un chauffeur</h1>
+    <h1>Créer un chauffeur</h1>
 
-    {{ include('chauffeur/_form.html.twig') }}
+    {{ form_start(form) }}
+    {{ form_row(form.nom) }}
+    {{ form_row(form.prenom) }}
+    {{ form_row(form.horaires) }}
+    {{ form_row(form.experiences) }}
+    <button type="submit" class="btn btn-primary">Créer</button>
+    {{ form_end(form) }}
 
-<a href="{{ path('app_chauffeur_index') }}" class="btn btn-secondary btn-sm">Retour à la liste</a>
-
+    <a href="{{ path('app_chauffeur_index') }}" class="btn btn-secondary btn-sm">Retour à la liste</a>
 {% endblock %}

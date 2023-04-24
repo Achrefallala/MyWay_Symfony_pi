@@ -41,12 +41,14 @@ class GuideRepository extends ServiceEntityRepository
 
 
 
-    public function getAgeStats()
+
+    public function getAgeStats(): array
     {
-        $qb = $this->createQueryBuilder('g');
-        $qb->select('MIN(g.age) as min_age', 'MAX(g.age) as max_age', 'AVG(g.age) as avg_age');
-        $query = $qb->getQuery();
-        return $query->getSingleResult();
+        $qb = $this->createQueryBuilder('g')
+                  ->select('COUNT(g.id) as totalGuides', 'AVG(g.age) as avgAge')
+                  ->getQuery();
+    
+        return $qb->getSingleResult();
     }
 
 //    /**

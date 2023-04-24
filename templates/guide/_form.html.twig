@@ -1,24 +1,10 @@
 {{ form_start(form) }}
-    <div class="form-group">
-        {{ form_label(form.nom) }}
-        {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="form-group">
-        {{ form_label(form.prenom) }}
-        {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="form-group">
-        {{ form_label(form.age) }}
-        {{ form_widget(form.age, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="form-group">
-        {{ form_label(form.langues) }}
-        {{ form_widget(form.langues, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="form-group">
-        {{ form_label(form.experiences) }}
-        {{ form_widget(form.experiences, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <button type="submit" class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
-{{ form_end(form) }}
+    {{ form_widget(form) }}
+     <div class="form-group">
+                 
+                    <button class="btn btn-primary" style="width:300px; margin:1px; background-color:#8DD3BB; margin: 0 auto; display: block;" type="submit">Ajouter</button>
 
+                   
+                    </button>
+                  </div>
+{{ form_end(form) }}

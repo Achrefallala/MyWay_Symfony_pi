@@ -1,0 +1,59 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Âge</th>
+      <th>Langues</th>
+      <th>Expériences</th>
+      <th>Note</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {% for guide in guides %}
+    <tr>
+      <td>{{ guide.id }}</td>
+      <td>{{ guide.nom }}</td>
+      <td>{{ guide.prenom }}</td>
+      <td>{{ guide.age }}</td>
+      <td>{{ guide.langues }}</td>
+      <td>{{ guide.experiences }}</td>
+      <td>{{ guide.note }}</td>
+
+    </tr>
+    {% else %}
+    <tr>
+      <td colspan="6">Aucun résultat trouvé.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<style>
+  .table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    background-color: transparent;
+    border-collapse: collapse;
+  }
+
+  .table td,
+  .table th {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+    text-align: center;
+  }
+
+  .table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+  }
+
+  .table tbody + tbody {
+    border-top: 2px solid #dee2e6;
+  }
+</style>

@@ -1,19 +1,29 @@
 {% extends 'baseBack.html.twig' %}
 
+{% block title %}Statistiques d'âge des guides{% endblock %}
+
 {% block body %}
-    <h1>Guide Statistics</h1>
-    <table>
-        <tr>
-            <td>Minimum Age:</td>
-            <td>{{ ageStats.min_age }}</td>
-        </tr>
-        <tr>
-            <td>Maximum Age:</td>
-            <td>{{ ageStats.max_age }}</td>
-        </tr>
-        <tr>
-            <td>Average Age:</td>
-            <td>{{ ageStats.avg_age }}</td>
-        </tr>
-    </table>
+    <h1>Statistiques d'âge des guides</h1>
+    <p>Nombre total de guides : {{ ageStats.totalGuides }}</p>
+    <p>Âge moyen des guides : {{ ageStats.avgAge }}</p>
+
+
+    <!-- servira de conteneur pour le graphique en batonnets -->
+    <canvas id="ageStatsChart"></canvas> 
+
+    <script>
+        var ageStatsData = {
+            labels: ['Total', 'Moyenne'],
+            datasets: [{
+                label: 'Statistiques d\'âge des guides',
+                data: [{{ ageStats.totalGuides }}, {{ ageStats.avgAge }}],
+                backgroundColor: ['#595959', '#80cbc4']
+            }]
+        };
+        
+        var ageStatsChart = new Chart(document.getElementById('ageStatsChart'), {
+            type: 'bar',
+            data: ageStatsData
+        });
+    </script>
 {% endblock %}

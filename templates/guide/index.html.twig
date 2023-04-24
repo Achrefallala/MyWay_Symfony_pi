@@ -29,6 +29,8 @@
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Age</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Langues</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Expériences</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Note</th>
+
                   <th class="text-secondary opacity-7"></th>
                 </tr>
               </thead>
@@ -41,6 +43,8 @@
                   <td class="align-middle text-center">{{ guide.age }}</td>
                   <td class="align-middle text-center">{{ guide.langues }}</td>
                   <td class="align-middle text-center">{{ guide.experiences }}</td>
+                  <td class="align-middle text-center">{{ guide.note }}</td>
+
                   <td class="align-middle">
                     <a href="{{ path('app_guide_show', {'id': guide.id}) }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-original-title="Afficher le guide">
                       Afficher
@@ -50,9 +54,7 @@
                       Modifier
                     </a>
 
-                    <a href="{{ path('app_guide_delete', {'id': guide.id}) }}" class="btn btn-danger btn-sm" data-toggle="tooltip" data-original-title="Supprimer le guide" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce guide ?')">
-                      Supprimer
-                    </a>
+                 
 
                   </td>
                 </tr>
@@ -64,7 +66,12 @@
               </tbody>
             </table>
               <div class="mx-3">
+
+
       <a class="btn bg-gradient-primary mt-4 w-100" href="{{ path('app_guide_new') }}"type="button">Ajouter un nouveau guide touristique</a>
+            <a class="btn btn-success btn-sm" href="{{ path('app_guide_pdf') }}" type="button">  Générer PDF</a>
+              
+              
               </div>
             </div>
           </div>

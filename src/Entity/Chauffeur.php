@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\ChauffeurRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: ChauffeurRepository::class)]
 class Chauffeur
@@ -31,6 +33,7 @@ class Chauffeur
 
   
   
+    #[ORM\OneToMany(targetEntity:'App\Entity\guide' , mappedBy:'chauffeur', cascade: ['persist','remove'])]
 
 
     public function getId(): ?int
@@ -96,5 +99,6 @@ class Chauffeur
 
         return $this;
     }
+  
 
 }

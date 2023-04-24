@@ -53,10 +53,11 @@
                                         <a class="page-scroll" href="#home">Home</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="page-scroll" href="#chauffeur">Chauffeurs</a>
+                                        <a class="page-scroll" href="{{ path('app_front_chauffeur') }}">Chauffeurs</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="page-scroll" href="#guide">Guide Touristiques</a>
+                                        <a class="page-scroll" href="{{ path('app_front_guide') }}">Guide Touristiques</a>
+</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="page-scroll" href="#services">Services</a>
@@ -88,27 +89,38 @@
     <h1>Notez un chauffeur</h1>
 
     <form method="post" action="{{ path('app_front_chauffeur') }}">
-        <label for="chauffeur">Choisissez le chauffeur :</label>
-        <br>
+        <label for="chauffeur">Choisissez le chauffeur:</label>
+          <br>
+        
         <select name="chauffeur" id="chauffeur">
-        <br>
+          <br>
+        
             {% for chauffeur in chauffeurs %}
                 <option value="{{ chauffeur.id }}">{{ chauffeur.nom }}</option>
             {% endfor %}
-            <br>
         </select>
-        <br>
+          <br>
+        
         <br>
         <label>Donnez une note :</label>
-        <div class="rating">
-            <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Excellent">5 </label>
-            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Très bien">4 </label>
-            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Bien">3 </label>
-            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Moyen">2 </label>
-            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Mauvais">1 </label>
+        <div class="note">
+            <input type="radio" id="star5" name="note" value="5" /><label for="star5" title="Excellent">5 </label>
+            <input type="radio" id="star4" name="note" value="4" /><label for="star4" title="Très bien">4 </label>
+            <input type="radio" id="star3" name="note" value="3" /><label for="star3" title="Bien">3 </label>
+            <input type="radio" id="star2" name="note" value="2" /><label for="star2" title="Moyen">2 </label>
+            <input type="radio" id="star1" name="note" value="1" /><label for="star1" title="Mauvais">1 </label>
         </div>
         <br>
         <input type="submit" value="Noter" />
+        <script>
+    var form = document.getElementById("rating-form");
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+        var note = document.querySelector('input[name="note"]:checked').value;
+        // envoyer la note sélectionnée à votre serveur ici
+        console.log("Note sélectionnée : " + note);
+    });
+</script>
     </form>
 </div>
                                 <p class="wow fadeInLeftBig" data-wow-duration="1.3s" data-wow-delay="0.5s">Ici vous pouvez noter un chauffeur</p>
@@ -119,7 +131,5 @@
             </div> <!-- single slider -->
         </div> <!-- header slider -->
     </section>
-
-
 
 {% endblock %}

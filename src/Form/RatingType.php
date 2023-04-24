@@ -32,18 +32,28 @@ class RatingType extends AbstractType
                     'min' => 1,
                     'max' => 5,
                     'step' => 1,
-                    'readonly' => true,
                 ],
             ])
             ->add('submit', SubmitType::class);
 
+        $builder->addEventListener(
+            FormEvents::PRE_SUBMIT,
+            function (FormEvent $event) {
+                $guide = $event->getData();
+                if (is_array($guide)) {
+                    $guide['note'] = (int) $guide['note']; // convertir la note en entier
+                    $event->setData($guide);
+                }
+            }
+        );
+
         $builder->get('note')->addEventListener(
             FormEvents::POST_SUBMIT,
             function (FormEvent $event) {
-                $rating = $event->getData();
+                $note = $event->getData();
                 $guide = $event->getForm()->getParent()->getData();
 
-                $guide->addRating($rating);
+                $guide->setRating($note);
                 $this->entityManager->persist($guide);
                 $this->entityManager->flush();
             }

@@ -2,43 +2,46 @@
 namespace App\Controller;
 
 use App\Entity\Chauffeur;
-use App\Form\RatingType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry;
 
 class FrontChauffeurController extends AbstractController
 {
     #[Route('/front/chauffeur', name: 'app_front_chauffeur', methods:['GET', 'POST'])]
-    public function index(Request $request): Response
+    public function noteChauffeur(Request $request, ManagerRegistry $doctrine): Response
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $chauffeurs = $entityManager->getRepository(Chauffeur::class)->findAll();
+        // Vérifier si le formulaire a été soumis
+        if ($request->isMethod('POST')) {
+            // Récupérer l'identifiant du chauffeur sélectionné
+            $id = $request->request->get('chauffeur');
 
-        $form = $this->createForm(RatingType::class);
-        $form->handleRequest($request);
+            // Récupérer la note attribuée
+            $note = $request->request->get('note');
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $formData = $form->getData();
-            $note = $formData['note'];
-            $chauffeur = $formData['chauffeur'];
+            // Récupérer l'entité chauffeur correspondante depuis la base de données
+            $chauffeur = $doctrine->getManager()->getRepository(Chauffeur::class)->find($id);
 
+            // Mettre à jour l'attribut note de l'entité chauffeur avec la nouvelle note
             $chauffeur->setNote($note);
 
+            // Enregistrer les modifications dans la base de données
+            $entityManager = $doctrine->getManager();
             $entityManager->persist($chauffeur);
             $entityManager->flush();
 
-            $this->addFlash('success', 'La note a été enregistrée avec succès.');
-
+            // Rediriger vers une autre page
             return $this->redirectToRoute('app_front_chauffeur');
         }
 
+        // Récupérer tous les chauffeur depuis la base de données
+        $chauffeurs = $doctrine->getManager()->getRepository(Chauffeur::class)->findAll();
+
+        // Afficher le formulaire pour saisir la note
         return $this->render('front_chauffeur/index.html.twig', [
             'chauffeurs' => $chauffeurs,
-            'form' => $form->createView(),
         ]);
     }
 }
-
-

@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Dompdf\Dompdf;
 
 #[Route('/chauffeur')]
 class ChauffeurController extends AbstractController
@@ -40,7 +41,7 @@ class ChauffeurController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_chauffeur_show', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'app_chauffeur_show', methods: ['GET'])]
     public function show(Chauffeur $chauffeur): Response
     {
         return $this->render('chauffeur/show.html.twig', [
@@ -75,4 +76,23 @@ class ChauffeurController extends AbstractController
 
         return $this->redirectToRoute('app_chauffeur_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/pdf', name: 'app_chauffeur_pdf')]
+
+public function pdf()
+{
+    $dompdf = new Dompdf();
+    $html = $this->renderView('chauffeur/pdf.html.twig', [
+        'chauffeurs' => $this->getDoctrine()->getRepository(Chauffeur::class)->findAll(),
+    ]);
+    $dompdf->loadHtml($html);
+    $dompdf->setPaper('A4', 'landscape');
+    $dompdf->render();
+    $pdfContent = $dompdf->output();
+
+    $response = new Response($pdfContent);
+    $response->headers->set('Content-Type', 'application/pdf');
+
+    return $response;
+}
 }

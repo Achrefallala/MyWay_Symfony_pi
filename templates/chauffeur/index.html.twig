@@ -24,6 +24,8 @@
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Prénom</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Horaires</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Expériences</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Note</th>
+
                     <th class="text-secondary opacity-7"></th>
                   </tr>
                 </thead>
@@ -46,6 +48,9 @@
                       <td class="align-middle text-center">
                         <span class="text-secondary text-xs font-weight-bold">{{ chauffeur.experiences }}</span>
                       </td>
+                        <td class="align-middle text-center">
+                        <span class="text-secondary text-xs font-weight-bold">{{ chauffeur.note }}</span>
+                      </td>
                     <td class="align-middle">
                         <a href="{{ path('app_chauffeur_show', {'id': chauffeur.id}) }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-original-title="Afficher le chauffeur">
   Afficher
@@ -55,9 +60,7 @@
   Modifier
 </a>
 
-                    <a href="{{ path('app_guide_delete', {'id': chauffeur.id}) }}" class="btn btn-danger btn-sm" data-toggle="tooltip" data-original-title="Supprimer le chauffeur" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce chauffeur ?')">
-  Supprimer
-</a>
+ 
 
                     </td>
                   </tr>
@@ -69,7 +72,10 @@
                 </tbody>
               </table>
               <div class="mx-3">
+
       <a class="btn bg-gradient-primary mt-4 w-100" href="{{ path('app_chauffeur_new') }}"type="button">Ajouter un nouveau chauffeur</a>
+              <a class="btn btn-success btn-sm" href="{{ path('app_chauffeur_pdf') }}" type="button">  Générer PDF</a>
+
               </div>
             </div>
           </div>
