@@ -5,20 +5,59 @@
 			<div class="d-flex justify-content-between align-items">
 				<div>
 					<a href="{{ path('app_trajet_create')}}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-						<button type="button" class="btn btn-success ">Ajouter un trajet</button>
+						<button type="button" class="btn btn-success ">
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg" viewbox="0 0 16 16">
+								<path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+							</svg>
+
+							<span class="mx-1 ">Ajouter un Trajet</span>
+						</button>
 					</a>
 				</div>
 
-				<div>
-	
-							<div class=" input-group input-group-outline">
-								<input class='form-control bg-white' type="search" data-model="query" placeholder="Chercher">
-								<span class="input-group-text px-2 border-0" id="search-addon">
-									<i class="fas fa-search"></i>
-								</span>
-							</div>
-						
+				<div class="d-flex">
+					<div class="mx-1">
+						<a href="{{ path('app_trajet_list') }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+							<button type="button" class="btn btn-outline-secondary">
+								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bootstrap-reboot" viewbox="0 0 16 16">
+									<path d="M1.161 8a6.84 6.84 0 1 0 6.842-6.84.58.58 0 1 1 0-1.16 8 8 0 1 1-6.556 3.412l-.663-.577a.58.58 0 0 1 .227-.997l2.52-.69a.58.58 0 0 1 .728.633l-.332 2.592a.58.58 0 0 1-.956.364l-.643-.56A6.812 6.812 0 0 0 1.16 8z"/>
+									<path d="M6.641 11.671V8.843h1.57l1.498 2.828h1.314L9.377 8.665c.897-.3 1.427-1.106 1.427-2.1 0-1.37-.943-2.246-2.456-2.246H5.5v7.352h1.141zm0-3.75V5.277h1.57c.881 0 1.416.499 1.416 1.32 0 .84-.504 1.324-1.386 1.324h-1.6z"/>
+								</svg>
+								{# <span class="mx-1 ">Reset</span> #}
+							</button>
+						</a>
+					</div>
+
+					<div class="mx-1">
+						<button type="button" class="btn btn-dark " data-bs-toggle="modal" data-bs-target="#sortModal">
+							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-sort-up" viewbox="0 0 16 16">
+								<path d="M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
+							</svg>
+							<span class="mx-1 ">Sort</span>
+						</button>
+					</div>
+
+					<div class="mx-1">
+						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#filterModal">
+							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-funnel" viewbox="0 0 16 16">
+								<path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z"/>
+							</svg>
+							<span class="mx-1 ">Filter</span>
+						</button>
+					</div>
+
+					<div style="margin-left:18px">
+						<div class=" input-group input-group-outline">
+							<input class='form-control bg-white' type="search" data-model="query" placeholder="Chercher">
+							<span class="input-group-text px-2 border-0" id="search-addon">
+								<i class="fas fa-search"></i>
+							</span>
+						</div>
+
+					</div>
 				</div>
+
+
 			</div>
 
 			<div class="card mb-4">
@@ -38,7 +77,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								{% if this.trajets is empty %}
+								{% if this.listTrajets is empty %}
 									<tr>
 
 										<td colspan="6">
@@ -49,13 +88,13 @@
 
 								{% else %}
 
-									{% for trajet in this.trajets %}
+									{% for trajet in this.listTrajets %}
 										<tr>
 											<td class="align-middle text-center">
-												<span class="text-secondary text-xs font-weight-bold text-start">{{trajet.getDepart()}}</span>
+												<span class="text-secondary text-xs font-weight-bold text-start">{{trajet.depart()}}</span>
 											</td>
 											<td class="align-middle text-center">
-												<span class="text-secondary text-xs font-weight-bold">{{trajet.getDestination()}}</span>
+												<span class="text-secondary text-xs font-weight-bold">{{trajet.destination()}}</span>
 											</td>
 											<td class="align-middle text-center">
 												<span class="text-secondary text-xs font-weight-bold ">{{trajet.distance}}</span>

@@ -88,6 +88,12 @@ class EtablissementRepository extends ServiceEntityRepository
     }
 
 
+    public function sort($trierPar, $type)
+    {
+        return $this->createQueryBuilder('e')
+                      ->orderBy('e.'.$trierPar, $type)
+                      ->getQuery()->getResult();
+    }
 
 
 //    /**

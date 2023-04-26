@@ -11,16 +11,23 @@ class TrajetSearch
 {
     use DefaultActionTrait;
 
-    #[LiveProp(writable: true)]
+    #[LiveProp(writable: true)] 
     public string $query = '';
+
+    public $trajets;
+
+    public $filtred;
 
     public function __construct(private TrajetRepository $trajetRepository)
     {
     }
 
-    public function getTrajets(): array
+    public function getListTrajets(): array
     {
-        // example method that returns an array of Products
+        if($this->filtred == true){
+            return $this->trajets;
+        }
+        
         return $this->trajetRepository->findByDepartOrDestination($this->query);
     }
 }

@@ -28,11 +28,267 @@
 		</div>
 	</div>
 
-{{ component('TrajetSearch') }}	
+	<!-- Modal de filter-->
+	<div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="filterModalLabel">Filter</h5>
+					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				{{ form_start(filterForm, {'attr' : {'novalidate': 'novalidate'}}) }}
+				<div class="modal-body">
+					<div class="container">
+
+
+						<div class="row my-3 d-flex justify-content-start align-items-baseline">
+							<div class="col-3">
+								<label class="text-dark ">Depart :</label>
+							</div>
+							<div class="col-7">
+								<div>
+									{{ form_widget(filterForm.depart, {'attr': {'class': 'form-select border'}}) }}
+								</div>
+							</div>
+						</div>
+
+						<div class="row my-3 d-flex justify-content-start align-items-baseline">
+							<div class="col-3">
+								<label class="text-dark ">Destination :</label>
+							</div>
+							<div class="col-7">
+								<div>
+									{{ form_widget(filterForm.destination, {'attr': {'class': 'form-select border'}}) }}
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row my-3 ">
+							<div class="col-12 mb-2">
+								<label class="text-dark ">Distance :</label>
+							</div>
+							<div class="col-12">
+								<div class="double-range-slider-distance ">
+									<div class="range-distance">
+										<div class="range-slider-distance ">
+											<span class="range-selected-distance"></span>
+										</div>
+										<div class="range-input-distance ">
+											<input type="range" class="minDistance" min="0" max="300" value="0" step="2">
+											<input type="range" class="maxDistance" min="0" max="300" value="150" step="2">
+										</div>
+										<div class="range-price-distance mt-3">
+											<label for="minDistance">Min</label>
+											{{ form_widget(filterForm.minDistance, {'attr': {'class': 'px-2 ', 'name': "minDistance", 'value': "0"}}) }}
+
+											<label for="maxDistance">Max</label>
+											{{ form_widget(filterForm.maxDistance, {'attr': {'class': 'px-2 ', 'name': "maxDistance", 'value': "150"}}) }}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row my-3 ">
+							<div class="col-12 mb-2">
+								<label class="text-dark ">Nombre de vue :</label>
+							</div>
+							<div class="col-12">
+								<div class="double-range-slider ">
+									<div class="range">
+										<div class="range-slider ">
+											<span class="range-selected"></span>
+										</div>
+										<div class="range-input ">
+											<input type="range" class="min" min="0" max="100000" value="0" step="500">
+											<input type="range" class="max" min="0" max="100000" value="50000" step="500">
+										</div>
+										<div class="range-price mt-3">
+											<label for="min">Min</label>
+											{{ form_widget(filterForm.minViews, {'attr': {'class': 'px-2 ', 'name': "min", 'value': "0"}}) }}
+
+											<label for="max">Max</label>
+											{{ form_widget(filterForm.maxViews, {'attr': {'class': 'px-2 ', 'name': "max", 'value': "50000"}}) }}
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="row my-3 ">
+							<div class="col-12">
+								<label class="text-dark ">Date de création :</label>
+							</div>
+							<div class="col-12 d-flex justify-content-start align-items-baseline">
+								<div class="col-6 d-flex justify-content-start align-items-baseline">
+									<label class="text-dark ">De :</label>
+									<div>
+										{{ form_widget(filterForm.minDateCreation, {'attr': {'class': 'mx-2'}}) }}
+									</div>
+								</div>
+								<div class="col-6 d-flex justify-content-start align-items-baseline">
+									<label class="text-dark ">à :</label>
+									<div>
+										{{ form_widget(filterForm.maxDateCreation, {'attr': {'class': 'mx-2'}}) }}
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+
+					<div class="modal-footer ">
+						<a>
+							<button type="button" class="btn btn-outline-secondary btn-sm " data-bs-dismiss="modal">Fermer</button>
+						</a>
+						<a id="btnModal" href="" class="text-secondary font-weight-bold " data-toggle="tooltip" data-original-title="Edit user">
+							{{ form_widget(filterForm.filter, {'attr': {'class': ' btn btn-info btn-sm'}}) }}
+						</a>
+
+					</div>
+					{{ form_end(filterForm) }}
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal de sort -->
+	<div class="modal fade" id="sortModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Trier par :</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				{{ form_start(sortForm, {'attr' : {'novalidate': 'novalidate'}}) }}
+				<div class="modal-body">
+					<div class="container">
+
+						<div class="row my-3 ">
+							<div class="col-12">
+								<label class="text-dark ">Trier par :</label>
+							</div>
+							<div class="col-12">
+								<div>
+									{{ form_widget(sortForm.trierPar, {'attr': {'class': 'px-2 d-flex flex-column '}}) }}
+								</div>
+							</div>
+						</div>
+
+						<div class="row my-3 ">
+							<div class="col-12">
+								<label class="text-dark ">Type :</label>
+							</div>
+							<div class="col-12">
+								<div class="  ">
+									{{ form_widget(sortForm.type, {'attr': {'class': 'px-2 d-flex flex-column py-auto'}, }) }}
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+
+					<div class="modal-footer ">
+						<a>
+							<button type="button" class="btn btn-outline-secondary btn-sm " data-bs-dismiss="modal">Fermer</button>
+						</a>
+						<a id="btnModal" class="text-secondary font-weight-bold " data-toggle="tooltip" data-original-title="Edit user">
+							{{ form_widget(sortForm.trier, {'attr': {'class': ' btn btn-dark btn-sm'}}) }}
+						</a>
+
+					</div>
+					{{ form_end(sortForm) }}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{{ component('TrajetSearch', {trajets:  trajets, filtred: filtred }) }}
 
 
 	<script>
-		function myFunction(id) {
+		/* -------------distance------------------*/
+let rangeMinDistance = 1;
+const rangeDistance = document.querySelector(".range-selected-distance");
+const rangeInputDistance = document.querySelectorAll(".range-input-distance input");
+const rangePriceDistance = document.querySelectorAll(".range-price-distance input");
+rangeInputDistance.forEach((input) => {
+input.addEventListener("input", (e) => {
+let minRangeDistance = parseInt(rangeInputDistance[0].value);
+let maxRangeDistance = parseInt(rangeInputDistance[1].value);
+if (maxRangeDistance - minRangeDistance < rangeMinDistance) {
+if (e.target.className === "minDistance") {
+rangeInputDistance[0].value = maxRangeDistance - rangeMinDistance;
+} else {
+rangeInputDistance[1].value = minRangeDistance + rangeMinDistance;
+}
+} else {
+rangePriceDistance[0].value = minRangeDistance;
+rangePriceDistance[1].value = maxRangeDistance;
+rangeDistance.style.left = (minRangeDistance / rangeInputDistance[0].max) * 100 + "%";
+rangeDistance.style.right = 100 - (maxRangeDistance / rangeInputDistance[1].max) * 100 + "%";
+}
+});
+});
+rangePriceDistance.forEach((input) => {
+input.addEventListener("input", (e) => {
+let minPriceDistance = rangePriceDistance[0].value;
+let maxPriceDistance = rangePriceDistance[1].value;
+if (maxPriceDistance - minPriceDistance >= rangeMinDistance && maxPriceDistance <= rangeInputDistance[1].max) {
+if (e.target.className === "minDistance") {
+rangeInputDistance[0].value = minPriceDistance;
+rangeDistance.style.left = (minPriceDistance / rangeInputDistance[0].maxDistance) * 100 + "%";
+} else {
+rangeInputDistance[1].value = maxPriceDistance;
+rangeDistance.style.right = 100 - (maxPriceDistance / rangeInputDistance[1].maxDistance) * 100 + "%";
+}
+}
+});
+});
+
+/* -------------nombre de vues------------------*/
+let rangeMin = 100;
+const range = document.querySelector(".range-selected");
+const rangeInput = document.querySelectorAll(".range-input input");
+const rangePrice = document.querySelectorAll(".range-price input");
+rangeInput.forEach((input) => {
+input.addEventListener("input", (e) => {
+let minRange = parseInt(rangeInput[0].value);
+let maxRange = parseInt(rangeInput[1].value);
+if (maxRange - minRange < rangeMin) {
+if (e.target.className === "min") {
+rangeInput[0].value = maxRange - rangeMin;
+} else {
+rangeInput[1].value = minRange + rangeMin;
+}
+} else {
+rangePrice[0].value = minRange;
+rangePrice[1].value = maxRange;
+range.style.left = (minRange / rangeInput[0].max) * 100 + "%";
+range.style.right = 100 - (maxRange / rangeInput[1].max) * 100 + "%";
+}
+});
+});
+rangePrice.forEach((input) => {
+input.addEventListener("input", (e) => {
+let minPrice = rangePrice[0].value;
+let maxPrice = rangePrice[1].value;
+if (maxPrice - minPrice >= rangeMin && maxPrice <= rangeInput[1].max) {
+if (e.target.className === "min") {
+rangeInput[0].value = minPrice;
+range.style.left = (minPrice / rangeInput[0].max) * 100 + "%";
+} else {
+rangeInput[1].value = maxPrice;
+range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
+}
+}
+});
+});
+function myFunction(id) {
 const btn = document.getElementById("btn");
 btn.href = "/trajet/delete/" + id;
 }

@@ -2,12 +2,11 @@
 
 namespace App\Controller;
 
-
-use App\Form\SearchEtablissementType;
 use App\Form\EtablissementType;
 use App\Form\FilterEtablissementType;
 use App\Entity\Etablissement;
 use App\Repository\EtablissementRepository;
+use App\Form\SortEtablissementType;
 
 use Symfony\Component\String\Slugger\SluggerInterface;
 use DateTime;
@@ -27,6 +26,10 @@ class EtablissementController extends AbstractController
 
         date_default_timezone_set('Africa/Tunis');
         $form['maxDateCreation']->setData(new DateTime());
+
+        $sortForm = $this->createForm(SortEtablissementType::class);
+        $sortForm['trierPar']->setData('nom');
+        $sortForm['type']->setData('ASC');
        
         $form->handleRequest($request);
 
@@ -51,15 +54,30 @@ class EtablissementController extends AbstractController
             return $this->render('admin/etablissement/list.html.twig', [  
                 'pageName' => 'Liste des etablissements',  
                 'filterForm' => $form->createView(),
+                'sortForm' => $sortForm->createView(),
                 'etablissements' =>  $etablissements,
                 'filtred' => true
             ]);
 
         }
+
+        $sortForm->handleRequest($request);
+        if ($sortForm->isSubmitted()) {
+            
+            $etablissements = $repository->sort($sortForm['trierPar']->getData(), $sortForm['type']->getData());
+            return $this->render('admin/etablissement/list.html.twig', [  
+                'pageName' => 'Liste des etablissements',  
+                'filterForm' => $form->createView(),
+                'sortForm' => $sortForm->createView(),
+                'etablissements' =>  $etablissements,
+                'filtred' => true
+            ]);
+        }
         
         return $this->render('admin/etablissement/list.html.twig', [  
             'pageName' => 'Liste des etablissements',  
             'filterForm' => $form->createView(),
+            'sortForm' => $sortForm->createView(),
             'etablissements' =>  $etablissements,
             'filtred' => false
         ]);

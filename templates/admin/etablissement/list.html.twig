@@ -152,9 +152,59 @@
 				</div>
 			</div>
 		</div>
-         
+         <!-- Modal de sort -->
+	<div class="modal fade" id="sortModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Trier par :</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				{{ form_start(sortForm, {'attr' : {'novalidate': 'novalidate'}}) }}
+				<div class="modal-body">
+					<div class="container">
+
+						<div class="row my-3 ">
+							<div class="col-12">
+								<label class="text-dark ">Trier par :</label>
+							</div>
+							<div class="col-12">
+								<div>
+									{{ form_widget(sortForm.trierPar, {'attr': {'class': 'px-2 d-flex flex-column '}}) }}
+								</div>
+							</div>
+						</div>
+
+						<div class="row my-3 ">
+							<div class="col-12">
+								<label class="text-dark ">Type :</label>
+							</div>
+							<div class="col-12">
+								<div class="  ">
+									{{ form_widget(sortForm.type, {'attr': {'class': 'px-2 d-flex flex-column py-auto'}, }) }}
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+
+					<div class="modal-footer ">
+						<a>
+							<button type="button" class="btn btn-outline-secondary btn-sm " data-bs-dismiss="modal">Fermer</button>
+						</a>
+						<a id="btnModal" class="text-secondary font-weight-bold " data-toggle="tooltip" data-original-title="Edit user">
+							{{ form_widget(sortForm.trier, {'attr': {'class': ' btn btn-dark btn-sm'}}) }}
+						</a>
+
+					</div>
+					{{ form_end(sortForm) }}
+				</div>
+			</div>
+		</div>
+	</div>
 		 
-		        {{ component('EtablissementSearch', {etablissements:  etablissements, filtred: filtred })}}
+		{{ component('EtablissementSearch', {etablissements:  etablissements, filtred: filtred })}}
 		
 
 		<script>

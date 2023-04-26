@@ -2,8 +2,9 @@
 
 namespace App\Controller;
 use App\Entity\Trajet;
-use App\Form\SearchTrajetType;
+use App\Form\FilterTrajetType;
 use App\Form\SearchTrajetByDepartAndDestinationType;
+use App\Form\SortTrajetType;
 use App\Form\TrajetType;
 use DateTime;
 use App\Repository\TrajetRepository;
@@ -19,12 +20,66 @@ class TrajetController extends AbstractController
 
     #--------------------------------------ADMIN---------------------------------------------#
     #[Route('/trajet/list', name: 'app_trajet_list')]
-    public function list(): Response {
+    public function list(TrajetRepository $repository, Request $request): Response {
         
-        return $this->renderForm('admin/trajet/list.html.twig', [
+        $trajets = $repository->findAll();
+
+        $form = $this->createForm(FilterTrajetType::class);
+        date_default_timezone_set('Africa/Tunis');
+        $form['maxDateCreation']->setData(new DateTime());
+
+        $sortForm = $this->createForm(SortTrajetType::class);
+        $sortForm['trierPar']->setData('depart');
+        $sortForm['type']->setData('ASC');
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() ) {
+
+            if(! $form['depart']->getData() && $form['destination']->getData()){
+                $trajets = $repository->filter(null, $form['destination']->getData()->getDestination(),$form['minDistance']->getData(), $form['maxDistance']->getData(), $form['minViews']->getData(), $form['maxViews']->getData(), $form['minDateCreation']->getData(), $form['maxDateCreation']->getData());
+            }
+            if(! $form['destination']->getData() && $form['depart']->getData()){
+                $trajets = $repository->filter($form['depart']->getData()->getDepart(), null,$form['minDistance']->getData(), $form['maxDistance']->getData(), $form['minViews']->getData(), $form['maxViews']->getData(), $form['minDateCreation']->getData(), $form['maxDateCreation']->getData());
+            }
+
+            if(! $form['destination']->getData() && ! $form['depart']->getData()){
+                $trajets = $repository->filter(null, null,$form['minDistance']->getData(), $form['maxDistance']->getData(), $form['minViews']->getData(), $form['maxViews']->getData(), $form['minDateCreation']->getData(), $form['maxDateCreation']->getData());
+            }
+
+            if($form['destination']->getData() && $form['depart']->getData()){
+                $trajets = $repository->filter($form['depart']->getData()->getDepart(), $form['destination']->getData()->getDestination(),$form['minDistance']->getData(), $form['maxDistance']->getData(), $form['minViews']->getData(), $form['maxViews']->getData(), $form['minDateCreation']->getData(), $form['maxDateCreation']->getData());
+            }
+    
             
-            'pageName' => 'Liste des Trajets',
+            return $this->render('admin/trajet/list.html.twig', [  
+                'pageName' => 'Liste des trajets',  
+                'filterForm' => $form->createView(),
+                'sortForm' => $sortForm->createView(),
+                'trajets' =>  $trajets,
+                'filtred' => true
+            ]);
+
+        }
+
+        $sortForm->handleRequest($request);
+        if ($sortForm->isSubmitted()) {
             
+            $trajets = $repository->sort($sortForm['trierPar']->getData(), $sortForm['type']->getData());
+            return $this->render('admin/trajet/list.html.twig', [  
+                'pageName' => 'Liste des trajets',  
+                'filterForm' => $form->createView(),
+                'sortForm' => $sortForm->createView(),
+                'trajets' =>  $trajets,
+                'filtred' => true
+            ]);
+        }
+        
+        return $this->render('admin/trajet/list.html.twig', [  
+            'pageName' => 'Liste des trajets',  
+            'filterForm' => $form->createView(),
+            'sortForm' => $sortForm->createView(),
+            'trajets' =>  $trajets,
+            'filtred' => false
         ]);
     }
 
