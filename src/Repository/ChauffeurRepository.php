@@ -38,6 +38,21 @@ class ChauffeurRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function search($q)
+{
+    return $this->createQueryBuilder('c')
+        ->where('c.id LIKE :q')
+        ->orWhere('c.nom LIKE :q')
+        ->orWhere('c.prenom LIKE :q')
+        ->orWhere('c.horaires LIKE :q')
+        ->orWhere('c.experiences LIKE :q')
+        ->orWhere('c.note LIKE :q')
+        ->setParameter('q', '%'.$q.'%')
+        ->getQuery()
+        ->getResult()
+    ;
+}
+
 
 //    /**
 //     * @return Chauffeur[] Returns an array of Chauffeur objects

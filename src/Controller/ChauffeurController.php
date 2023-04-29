@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Dompdf\Dompdf;
 
+
 #[Route('/chauffeur')]
 class ChauffeurController extends AbstractController
 {
@@ -20,6 +21,7 @@ class ChauffeurController extends AbstractController
         return $this->render('chauffeur/index.html.twig', [
             'chauffeurs' => $chauffeurRepository->findAll(),
         ]);
+        
     }
 
     #[Route('/new', name: 'app_chauffeur_new', methods: ['GET', 'POST'])]
@@ -94,5 +96,25 @@ public function pdf()
     $response->headers->set('Content-Type', 'application/pdf');
 
     return $response;
+
+}
+
+#[Route('/search', name:'app_chauffeur_search', methods:['GET'])]
+
+public function search(Request $request, ChauffeurRepository $chauffeurRepository): Response
+{
+   $q = $request->query->get('q');
+   if ($q) {
+       $chauffeurs = $chauffeurRepository->search($q);
+   } else {
+       $chauffeurs = $chauffeurRepository->findAll();
+   }
+   return $this->render('chauffeur/index.html.twig', [
+       'chauffeurs' => $chauffeurs,
+       'search_term' => $q,
+   ]);
 }
 }
+
+
+

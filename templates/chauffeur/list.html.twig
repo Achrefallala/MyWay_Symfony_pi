@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Liste des chauffeurs</h1>
+        <form action="{{ path('chauffeur_search') }}" method="GET">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Rechercher..." name="q" value="{{ search_term }}">
+                <button class="btn btn-primary" type="submit">Rechercher</button>
+            </div>
+        </form>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Horaires</th>
+                    <th>Expériences</th>
+                    <th>Note</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for chauffeur in chauffeurs %}
+                    {% if search_term and (chauffeur.id == search_term or chauffeur.nom == search_term or chauffeur.prenom == search_term or chauffeur.horaires == search_term or chauffeur.experiences == search_term or chauffeur.note == search_term) %}
+                        <tr class="bg-warning">
+                    {% else %}
+                        <tr>
+                    {% endif %}
+                        <td>{{ chauffeur.id }}</td>
+                        <td>{{ chauffeur.nom }}</td>
+                        <td>{{ chauffeur.prenom }}</td>
+                        <td>{{ chauffeur.horaires }}</td>
+                        <td>{{ chauffeur.experiences }}</td>
+                        <td>{{ chauffeur.note }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
