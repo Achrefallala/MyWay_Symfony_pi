@@ -1,0 +1,19 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Edit ContratLocation{% endblock %}
+
+{% block body %}
+
+<div class="container" >
+    <div class="card border-primary mb-3">
+        <div class="card-header">
+            <h1 class="card-title">Edit ContratLocation</h1>
+        </div>
+        <div class="card-body">
+            {{ include('contrat/_form.html.twig', {'button_label': 'Update'}) }}
+            <a class="btn btn-secondary" href="{{ path('app_contrat_index') }}">Back to list</a>
+            {{ include('contrat/_delete_form.html.twig') }}
+        </div>
+    </div>
+</div>
+{% endblock %}

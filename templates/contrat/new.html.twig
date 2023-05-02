@@ -1,0 +1,15 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}New ContratLocation{% endblock %}
+
+{% block body %}
+<div class="container">
+<h1 class="mb-4">Create new ContratLocation</h1>
+<div class="row">
+<div class="col">
+{{ include('contrat/_form.html.twig') }}
+</div>
+</div>
+<a href="{{ path('app_contrat_index') }}" class="btn btn-secondary mt-3">Back to list</a>
+</div>
+{% endblock %}

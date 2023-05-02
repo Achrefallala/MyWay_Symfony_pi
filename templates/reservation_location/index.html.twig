@@ -1,0 +1,63 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}Liste des Locations{% endblock %}
+
+{% block body %}
+
+<div class="bg-gradient-info shadow-info border-radius-lg pt-4 pb-3">
+  <h6 class="text-capitalize ps-3">Liste des Locations</h6>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <form method="POST">
+                {{ form_start(form) }}
+                  <div class="flex row align-content-center" >
+                      {{ form_widget(form.field_name, {'attr': {'class': 'form-control border', 'placeholder': 'Search'}}) }}
+                      <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                  </div>
+                {{ form_end(form) }}
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container py-4">
+  <div class="row">
+    {% for location in locations %}
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <img src="{{ asset('uploads/images/' ~ location.image) }}" class="card-img-top" alt="{{ location.nom }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ location.nom }}</h5>
+          <p class="card-text">{{ location.description }}</p>
+          <ul class="list-unstyled">
+            <li>Disponibilité: {{ location.disponibilite ? "Disponible" : "Non disponible" }}</li>
+            <li>Type: {{ location.type }}</li>
+            <li>Dates:
+              <ul>
+                <li>Début: {{ location.contrat.dateDebut ? location.contrat.dateDebut|date('Y-m-d') : "N/A" }}</li>
+                <li>Fin: {{ location.contrat.dateFin ? location.contrat.dateFin|date('Y-m-d') : "N/A" }}</li>
+              </ul>
+            </li>
+            <li>Prix: {{ location.contrat.prix ? location.contrat.prix ~ " DT" : "N/A" }}</li>    
+          </ul>
+          <a href="{{ path('app_reservation_update', {'id': location.id}) }}" class="btn btn-success" data-toggle="tooltip" data-original-title="Afficher le contrat">Réserver</a>
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <div class="col-md-12">
+      <p class="text-center">Aucune location trouvée.</p>
+    </div>
+   
+    {% endfor %}
+     <div class=" pagination" style="margin-top: 20px; text-align: center; margin-left: 40%;">
+ {{ knp_pagination_render(locations) }}
+</div>
+  </div>
+</div>
+
+
+{% endblock %}

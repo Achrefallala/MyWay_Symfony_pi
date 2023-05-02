@@ -1,0 +1,101 @@
+{% extends 'baseBack.html.twig' %}
+
+
+
+{% block title %}Liste des Locations{% endblock %}
+
+{% block body %}
+
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <form method="POST">
+                {{ form_start(form) }}
+                  <div class="flex row align-content-center" >
+                      {{ form_widget(form.field_name, {'attr': {'class': 'form-control border', 'placeholder': 'Search'}}) }}
+                      <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                  </div>
+                {{ form_end(form) }}
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="card my-4">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-info shadow-info border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Liste des Locations</h6>
+            </div>
+          </div>
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">ID</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">IMAGE</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">NOM</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">DISPONIBILITE</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">TYPE</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">DESCRIPTION</th>
+                    <th class="text-secondary opacity-7"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for location in locations %}
+                  <tr>
+                    <td class="align-middler">
+                      <span class="text-secondary text-xs font-weight-bold">{{ location.id }}</span>
+                    </td>
+                    <td class="align-middle">
+                      <span class="text-secondary text-xs font-weight-bold">
+                        <img src="{{ asset('uploads/images/' ~ location.image) }}" style="width: 36px; height: 36px; object-fit: cover; border-radius: 50%;">
+                      </span>
+                    </td>
+                    <td class="align-middler">
+                        <span class="text-secondary text-xs font-weight-bold">{{ location.nom }}</span>
+                      </td>
+                      <td class="align-middler">
+                        <span class="text-secondary text-xs font-weight-bold">{{ location.disponibilite ? "<b>DISPONIBLE</b>" : "<b>NON DISPONIBLE</b>" }}</span>
+                      </td>
+                      <td class="align-middler">
+                        <span class="text-secondary text-xs font-weight-bold">{{ location.type }}</span>
+                      </td>
+                      <td class="align-middler">
+                        <span class="text-secondary text-xs font-weight-bold">{{ location.description }}</span>
+                      </td>
+                     
+                    <td class="align-middle">
+                        {% if not location.contrat %}
+                          <a href="{{ path('app_contrat_new') }}" class="btn btn-danger btn-sm" data-toggle="tooltip" data-original-title="Afficher le contrat">Ajouter Location</a>
+                        {% endif %}
+                        <a href="{{ path('app_location_show', {'id': location.id}) }}" class="btn btn-success btn-sm" data-toggle="tooltip" data-original-title="Afficher la location">Afficher</a>
+                        <a href="{{ path('app_location_edit', {'id': location.id}) }}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-original-title="Modifier la location">Modifier</a>
+                        <a href="{{ path('app_location_pdf', {'id': location.id}) }}" class="btn btn-dark btn-sm" data-toggle="tooltip" data-original-title="Modifier la location">PDF</a>
+                    </td>
+                  </tr>
+                  {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+                </tbody>
+              </table>
+              <div class="mx-3">
+                  <a class="btn bg-gradient-info info mt-4 w-100" href="{{ path('app_location_new') }}"type="button">Ajouter une nouvelle location</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
