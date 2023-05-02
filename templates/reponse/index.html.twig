@@ -1,0 +1,70 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Reponse{% endblock %}
+
+{% block body %}
+    {# <h1>Reponse</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Category</th>
+                <th>Message</th>
+                <th>Reponse</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reponse in reclamations %}
+            <tr>
+                <td>{{ reponse.titre }}</td>
+                <td>{{ reponse.category }}</td>
+                <td>{{ reponse.message }}</td>
+                <td>{{ reponse.reponses|length > 0 ? reponse.reponses|length ~ ' réponse(s)' : 'Aucune réponse' }}</td>
+
+                <td>
+                    <a class="btn btn-sm btn-info" href="{{ path('app_reponse_new', {'id': reponse.id}) }}">Repondre</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table> #}
+
+   <h1 style="font-size: 2.5rem; font-weight: bold; text-align: center; margin-bottom: 30px; color: #8DD3BB;">Reponse</h1>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover border">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Category</th>
+                <th>Message</th>
+                <th>Reponses</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reponse in reclamations %}
+                <tr>
+                    <td>{{ reponse.titre }}</td>
+                    <td>{{ reponse.category }}</td>
+                    <td>{{ reponse.message }}</td>
+                    <td>{{ reponse.reponses|length > 0 ? reponse.reponses|length ~ ' réponse(s)' : 'Aucune réponse' }}</td>
+                    <td>
+                        <a class="btn btn-sm btn-info" style="background-color:#8DD3BB;" href="{{ path('app_reponse_new', {'id': reponse.id}) }}">Repondre</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">No records found</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

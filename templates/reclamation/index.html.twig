@@ -1,0 +1,168 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reclamation{% endblock %}
+
+{% block body %}
+    <h1>Reclamation</h1>
+       {# <div class="text-right">
+    <form action="{{ path('app_reclamation_recherche') }}" method="GET">
+      <input type="text" name="nom">
+        <input type="submit" value="Rechercher" class="btn btn-danger mr-2" style="background-color:#8DD3BB;">
+    </form>
+</div> #}
+<div class="text-right">
+<form action="{{ path('app_reclamation_recherche') }}" method="GET">
+    <input type="text" name="category">
+    <input type="submit" value="Search" class="btn btn-danger mr-2" style="background-color:#8DD3BB;">
+</form>
+</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Message</th>
+                <th>Category</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reclamation in reclamations %}
+            <tr>
+                <td>{{ reclamation.id }}</td>
+                <td>{{ reclamation.message }}</td>
+                <td>{{ reclamation.category }}</td>
+                <td>
+                    <a class="btn btn-sm btn-info" style="background-color:#8DD3BB;" href="{{ path('app_reclamation_show', {'id': reclamation.id}) }}">show</a>
+                    <a class="btn btn-sm btn-info" style="background-color:#8DD3BB;" href="{{ path('app_reclamation_edit', {'id': reclamation.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reclamation_new') }}" class="btn btn-primary" style="display: block; width: 300px; margin: 10px auto; background-color: #8DD3BB; color: #FFF; border: none; border-radius: 5px; text-align: center; text-decoration: none; font-size: 18px; font-weight: bold; padding: 10px;">
+    <i class="fas fa-arrow-left"></i> Create new</a>
+      
+
+
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="page-header">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                    </ol>
+                </nav>
+            </div>
+             
+           
+                <div class="card">
+                  <div style="display: flex">
+                            <div class="col-md-5">
+                            </div>
+                            <form method="post" class="forms-sample" style="margin-left: -42px" >
+                                <div class="form-group col-md-4" style="display: flex; margin-top: 11px;margin-left: 50px;margin-right: 14px;padding-bottom: 7px">
+    
+                                    <div class="form-check">
+                                        <label class="form-check-label" style="width: 92px;margin-left: -2px;margin-right: 10px;">
+                                            <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="message">message</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label" style="width: 86px;margin-left: -2px;margin-right: 10px;">
+                                            <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="category" >categorie</label>
+                                    </div>
+    
+    
+                                    <button type="Submit" class="btn btn-success btn-fw" style="margin: auto; ">Sort</button>
+                                </div>
+                            </form>
+    
+                        </div></div>
+
+    <div  style="margin-left: 526px;" >
+        <style>
+ .pagination {
+    height: 40px;
+    margin: 20px 10px;
+}
+
+.pagination ul {
+    display: inline-block;
+    *display: inline;
+    margin-bottom: 0;
+    margin-left: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    *zoom: 1;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    padding: 0px;
+}
+
+.pagination li {
+    display: inline;
+}
+
+.pagination a,
+.pagination span {
+    float: left;
+    padding: 0 14px;
+    line-height: 38px;
+    text-decoration: none;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-left-width: 0;
+}
+
+.pagination a:hover,
+.pagination .active a,
+.pagination .active span {
+    background-color: #f5f5f5;
+}
+
+.pagination .active a,
+.pagination .active span {
+    color: #999999;
+    cursor: default;
+}
+
+.pagination .disabled span,
+.pagination .disabled a,
+.pagination .disabled a:hover {
+    color: #999999;
+    cursor: default;
+    background-color: transparent;
+}
+
+.pagination li:first-child a,
+.pagination li:first-child span {
+    border-left-width: 1px;
+    -webkit-border-radius: 3px 0 0 3px;
+    -moz-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px;
+}
+
+.pagination li:last-child a,
+.pagination li:last-child span {
+    -webkit-border-radius: 0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
+}
+
+.pagination-centered {
+    text-align: center;
+}
+
+.pagination-right {
+    text-align: right;
+}
+ </style>
+             {{knp_pagination_render(reclamations) }}
+                    
+                                     </div>
+{% endblock %}

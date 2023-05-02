@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+
+
+
+    <h1>Reclamation</h1>
+     
+<div class="text-right">
+</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Message</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reclamation in reclamations %}
+            <tr>
+                <td>{{ reclamation.id }}</td>
+                <td>{{ reclamation.message }}</td>
+                <td>{{ reclamation.category }}</td>
+               
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+  
+             
+           
+              
+                        
+    
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<section id="contact" class="contact_area pt-120 pb-130">
+    <div class="container">
+        <div class="contact_form">
+            {{ form_start(form) }}
+                <div class="col-lg-6">
+                    <div class="single_form">
+                        {{ form_row(form.titre, {'attr': {'placeholder': 'Titre'}}) }}
+                        {{ form_errors(form.titre) }}
+                    </div> <!-- single form -->
+                </div>
+                <div class="col-lg-6">
+                    <div class="single_form">
+                        {{ form_row(form.message, {'attr': {'placeholder': 'Message'}}) }}
+                        {{ form_errors(form.message) }}
+                    </div> <!-- single form -->
+                </div>
+                <div class="col-lg-6">
+                    <div class="single_form">
+                        {{ form_row(form.category, {'attr': {'placeholder': 'Category'}}) }}
+                        {{ form_errors(form.category) }}
+                    </div> <!-- single form -->
+                </div>
+
+                <div>
+                     {# <div class="single_form">
+                        {{ recaptcha_widget(form) }}
+                        {{ form_errors(form.recaptcha) }}
+                    </div>  #}
+                    <div class="single_form" >
+                        <button class="main-btn wow fadeInLeftBig" style="background-color:#8DD3BB;">{{ button_label|default('Save') }}</button>
+                    </div>
+                </div>
+
+            {{ form_rest(form) }}
+            {{ form_errors(form) }}
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+</section>
