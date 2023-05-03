@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/moyentp')]
 class MoyentpController extends AbstractController
@@ -87,4 +88,30 @@ class MoyentpController extends AbstractController
         $this->addFlash('success', 'Suppresion avec succès');
         return $this->redirectToRoute('app_moyentp_index');
     }
+
+    
+    #[Route('/search/matricule', name: 'search_matricule', methods: ['POST'])]
+public function searchMatricule(Request $request): JsonResponse
+{
+    $matricule = $request->request->get('matricule');
+
+    $repository = $this->getDoctrine()->getRepository(Moyentp::class);
+    $results = $repository->findBy(['matricule' => $matricule]);
+
+    $responseArray = array();
+    foreach ($results as $result) {
+        $responseArray[] = array(
+            'nom' => $result->getNom(),
+            'matricule' => $result->getMatricule(),
+            'type' => $result->getType(),
+            'nbreplace' => $result->getNbreplace(),
+            'prix_ticket' => $result->getPrixTicket(),
+            'horaire' => $result->getHoraire(),
+        );
+    }
+
+    return new JsonResponse($responseArray);
+}
+
+
 }
