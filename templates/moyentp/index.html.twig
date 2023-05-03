@@ -4,13 +4,27 @@
 
 {% block tableau %}
 
-
+<style>
+    #search-input {
+        border: none;
+        padding: 10px;
+        width: 300px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    #results {
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+</style>
  <div class="col-xl-0">
 
 									<!--begin::Charts Widget 1-->
 									
 										<!--begin::Header-->
-<!--begin::Header-->
 										<div class="card-header border-0 pt-5">
                                         <div class="container">
 
@@ -24,6 +38,47 @@
 												<span class="card-label fw-bolder fs-3 mb-1">Moyen de transport</span>
 												
 											</h3>
+											<br>
+
+											
+<form>
+    <input type="text" id="search-input" placeholder="Recherche...">
+</form>
+<div id="results"></div>
+
+
+
+    <script>
+        $(document).ready(function() {
+            $("#search-input").keyup(function() {
+                var matricule = $(this).val();
+                $.ajax({
+                    url: "{{ path('search_matricule') }}",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        matricule: matricule
+                    },
+                    success: function(response) {
+                        var results = $("#results");
+                        results.empty();
+                        if (response.length > 0) {
+                            $.each(response, function(key, value) {
+                                var html = "<p>" + value.nom + "</p>";
+                                results.append(html);
+                            });
+                        } else {
+                            results.append("<p>Aucun résultat</p>");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+
+
+											
 											 <br>
 											<div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" >
 												
@@ -54,7 +109,7 @@
 										<div class="card-body py-3">
 											<!--begin::Table container-->
 											<div class="table-responsive">
-						<h5>Rechercher <br><br> <input type="text" id="searchInput" placeholder="Rechercher par nom.."></h5>
+						
 												<table id="myTable"  class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
 												<!--begin::Table-->
 												
@@ -150,28 +205,7 @@
 										<!--begin::Body-->
 									</div>
 									<!--end::Tables Widget 3-->
-									<script>
-// Get the input field and table body
-var input = document.getElementById("searchInput");
-var tableBody = document.getElementById("tableBody");
-
-// Add event listener to input field
-input.addEventListener("keyup", function() {
-  // Get the user input and convert to lowercase
-  var filter = input.value.toLowerCase();
-  
-  // Loop through all table rows and hide those that do not match the filter
-  for (var i = 0; i < tableBody.rows.length; i++) {
-    var row = tableBody.rows[i];
-    var nom = row.cells[0].getElementsByTagName("span")[0];
-    if (nom.innerHTML.toLowerCase().indexOf(filter) > -1) {
-      row.style.display = "";
-    } else {
-      row.style.display = "none";
-    }
-  }
-});
-</script>
+								
 
 		
 		 				
